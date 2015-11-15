@@ -9,6 +9,8 @@ public abstract class Skill : MonoBehaviour {
 	public GameObject cast;
 	[HideInInspector]
 	public AudioSource ausou;
+	[HideInInspector]
+	public float lastTime;
 
 	// Use this for initialization
 	void Start () {

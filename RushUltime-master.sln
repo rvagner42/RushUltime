@@ -1,7 +1,9 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{FC2DA222-31F1-E1F1-C357-DED62633A006}"
+# Visual Studio 2008
+
+Project("{BA781E25-F44D-B6E3-B2D7-C898F263E052}") = "RushUltime-master", "Assembly-CSharp-firstpass.csproj", "{04C19042-D1CF-C7A8-F028-1D67A7E7A541}"
+EndProject
+Project("{BA781E25-F44D-B6E3-B2D7-C898F263E052}") = "RushUltime-master", "Assembly-CSharp.csproj", "{FC2DA222-31F1-E1F1-C357-DED62633A006}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +11,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04C19042-D1CF-C7A8-F028-1D67A7E7A541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C19042-D1CF-C7A8-F028-1D67A7E7A541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C19042-D1CF-C7A8-F028-1D67A7E7A541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C19042-D1CF-C7A8-F028-1D67A7E7A541}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC2DA222-31F1-E1F1-C357-DED62633A006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC2DA222-31F1-E1F1-C357-DED62633A006}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2DA222-31F1-E1F1-C357-DED62633A006}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2DA222-31F1-E1F1-C357-DED62633A006}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+													GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -32,7 +41,5 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
+
 EndGlobal

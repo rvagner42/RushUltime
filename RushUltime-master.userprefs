@@ -1,15 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Skills\SkillMeteor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy.cs">
     <Files>
-      <File FileName="Assets\Scripts\Skills\SkillFireball.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skills\SkillIceBlast.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Skills\SkillMeteor.cs" Line="20" Column="38" />
-      <File FileName="Assets\Scripts\Casts\CastFireball.cs" Line="23" Column="1" />
+      <File FileName="Assets\Scripts\Casts\CastBlizzard.cs" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\Casts\CastFireball.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Casts\CastIceBlast.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Casts\CastMeteor.cs" Line="33" Column="1" />
-      <File FileName="Assets\Scripts\Casts\Cast.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Casts\CastMeteor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Skills\Skill.cs" Line="12" Column="19" />
+      <File FileName="Assets\Scripts\Skills\SkillBlizzard.cs" Line="9" Column="23" />
+      <File FileName="Assets\Scripts\Skills\SkillFireball.cs" Line="9" Column="35" />
+      <File FileName="Assets\Scripts\Skills\SkillIceBlast.cs" Line="9" Column="35" />
+      <File FileName="Assets\Scripts\Skills\SkillMeteor.cs" Line="11" Column="3" />
+      <File FileName="Assets\Scripts\Player.cs" Line="104" Column="81" />
+      <File FileName="Assets\Scripts\Enemy.cs" Line="133" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

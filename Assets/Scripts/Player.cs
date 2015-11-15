@@ -101,7 +101,7 @@ public class Player : Character {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
 			{
-				transform.LookAt(hit.point);
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
 				Quaternion rotation = transform.rotation;
 				rotation.x = 0;
 				rotation.z = 0;

@@ -128,9 +128,9 @@ public class Enemy : Character {
 
 	IEnumerator Die()
 	{
-		yield return new WaitForSeconds (4.0f);
 		GetComponent<Collider> ().enabled = false;
 		GetComponent<NavMeshAgent> ().enabled = false;
+		yield return new WaitForSeconds (4.0f);
 		while (transform.position.y > -1.0f)
 		{
 			transform.Translate (Vector3.down * 0.05f);
