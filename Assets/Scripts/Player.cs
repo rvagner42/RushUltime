@@ -3,7 +3,9 @@ using UnityEngine.EventSystems;
 using System.Collections;
 
 public class Player : Character {
-	
+
+	public Skill currentSkill; // C'est à moi o/
+
 	private NavMeshAgent				agent;
 	private Animator					animator;
 	private Enemy						target;
@@ -87,6 +89,30 @@ public class Player : Character {
 			else
 				Attack ();
 		}
+
+		/*****************
+		******************   Ça aussi !
+		******************/
+
+		if (Input.GetMouseButtonDown(1))
+		{
+			agent.destination = transform.position;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				transform.LookAt(hit.point);
+				Quaternion rotation = transform.rotation;
+				rotation.x = 0;
+				rotation.z = 0;
+				//Instantiate (currentSkill, transform.position, rotation);
+				currentSkill.Cast(hit.point, rotation);
+			}
+		}
+
+		/*****************
+		******************
+		******************/
 	}
 
 	void Attack()
