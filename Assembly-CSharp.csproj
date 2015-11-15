@@ -47,7 +47,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Casts\Cast.cs" />
      <Compile Include="Assets\Scripts\Casts\CastBlizzard.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastFirePillar.cs" />
      <Compile Include="Assets\Scripts\Casts\CastFireball.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastFrostNova.cs" />
      <Compile Include="Assets\Scripts\Casts\CastIceBlast.cs" />
      <Compile Include="Assets\Scripts\Casts\CastMeteor.cs" />
      <Compile Include="Assets\Scripts\Casts\Explosion.cs" />
@@ -59,7 +61,9 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Skills\Skill.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillBlizzard.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillFirePillar.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillFireball.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillFrostNova.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillIceBlast.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillMeteor.cs" />
      <Compile Include="Assets\Scripts\UIEnemy.cs" />
