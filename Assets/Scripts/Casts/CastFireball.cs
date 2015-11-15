@@ -20,6 +20,8 @@ public class CastFireball : Cast {
 
 	void OnCollisionEnter(Collision collision)
 	{
+		if (collision.gameObject.tag == "Enemy")
+			collision.gameObject.GetComponent<Enemy>().hp -= damage;
 		Instantiate(explosion, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}

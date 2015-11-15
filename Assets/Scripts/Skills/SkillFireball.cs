@@ -16,6 +16,7 @@ public class SkillFireball: Skill {
 	override public void Cast(Vector3 position, Quaternion rotation)
 	{
 		ausou.Play ();
-		Cast tmp = Instantiate(cast, transform.position, rotation) as Cast;
+		GameObject tmp = Instantiate(cast, transform.position, rotation) as GameObject;
+		tmp.GetComponent<Cast>().damage = 10;
 	}
 }

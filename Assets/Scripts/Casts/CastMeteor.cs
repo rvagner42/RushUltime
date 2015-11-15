@@ -20,8 +20,13 @@ public class CastMeteor : Cast {
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		Instantiate(explosion, transform.position, Quaternion.identity);
-		GetComponent<SphereCollider>().enabled = false;
-		Destroy(gameObject, 2f);
+		if (collision.gameObject.tag == "Enemy")
+			collision.gameObject.GetComponent<Enemy>().hp -= damage;
+		else
+		{
+			Instantiate(explosion, transform.position, Quaternion.identity);
+			GetComponent<SphereCollider>().enabled = false;
+			Destroy(gameObject, 2f);
+		}
 	}
 }

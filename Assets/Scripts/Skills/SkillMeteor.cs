@@ -17,6 +17,8 @@ public class SkillMeteor : Skill {
 	{
 		ausou.Play ();
 		position.y += 50;
-		Cast tmp = Instantiate(cast, position, rotation) as Cast;
+		GameObject tmp = Instantiate(cast, position, rotation) as GameObject;
+		tmp.GetComponent<Cast>().damage = 10;
+
 	}
 }
