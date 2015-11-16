@@ -4,12 +4,14 @@ using System.Collections;
 public class CastFirePillar : Cast {
 
 	private AudioSource ausou;
+	private float lastTime;
 
 	// Use this for initialization
 	void Start () {
 		ausou = GetComponent<AudioSource>();
 		Destroy(gameObject, destroyTime + 2);
 		StartCoroutine(fireTime());
+		lastTime = -0.5f;
 	}
 	
 	// Update is called once per frame
@@ -17,10 +19,17 @@ public class CastFirePillar : Cast {
 	
 	}
 
-	void OnTriggerStay(Collider other)
+	void FixedUpdate()
 	{
-		if (other.tag == "Enemy")
+		if (Time.time > lastTime + 0.5f)
+			lastTime = Time.time;
+	}
+
+	IEnumerator OnTriggerStay(Collider other)
+	{
+		if (other.tag == "Enemy" && Time.time == lastTime)
 			other.gameObject.GetComponent<Enemy>().hp -= damage;
+		yield return new WaitForFixedUpdate();
 	}
 
 	IEnumerator fireTime()

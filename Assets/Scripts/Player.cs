@@ -72,11 +72,6 @@ public class Player : Character {
 				ui_enemy.Enable (true);
 			}
 		}
-		if (Input.GetMouseButtonUp (0) && target != null)
-		{
-			target = null;
-			agent.destination = transform.position;
-		}
 		if (Input.GetMouseButton (0))
 		{
 			if (target == null)
@@ -86,10 +81,9 @@ public class Player : Character {
 				if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit))
 					agent.destination = hit.point;
 			}
-			else
-				Attack ();
 		}
-
+		if (target != null)
+			Attack ();
 		/*****************
 		******************   Ça aussi !
 		******************/
@@ -139,6 +133,12 @@ public class Player : Character {
 					target = null;
 					ui_enemy.Enable (false);
 				}
+				if (!Input.GetMouseButton (0))
+				{
+					target = null;
+					agent.destination = transform.position;
+					ui_enemy.Enable (false);
+				}
 			}
 		}
 	}
@@ -149,15 +149,26 @@ public class Player : Character {
 		xp_next = xp_next + 100 * level;
 		level += 1;
 		upgrade_points += 5;
+		IncStats ();
+		CalculateStats ();
+	}
+
+	public void IncStats()
+	{
+		con += inc_con;
+		str += inc_str;
+		agi += inc_agi;
+		armor += inc_armor;
+		intel += inc_intel;
 	}
 
 	IEnumerator UIUpdate()
 	{
 		for (;;)
 		{
-			ui_maya.UpdateUI (hp, con * 5, xp, xp_next, level);
+			ui_maya.UpdateUI (hp, hp_max, xp, xp_next, level);
 			if (target != null)
-				ui_enemy.UpdateUI(target.hp, target.con * 5, target.name_string, target.level);
+				ui_enemy.UpdateUI(target.hp, target.hp_max, target.name_string, target.level);
 			yield return new WaitForSeconds(0.05f);
 		}
 	}
@@ -166,8 +177,9 @@ public class Player : Character {
 	{
 		while (hp > 0)
 		{
-			if (hp < con * 5)
-				hp += 1;
+			hp += (hp_max / 100);
+			if (hp > hp_max)
+				hp = hp_max;
 			yield return new WaitForSeconds (1.5f);
 		}
 	}

@@ -20,6 +20,7 @@ public class SkillFrostNova : Skill {
 		{
 			ausou.Play ();
 			GameObject tmp = Instantiate(cast, transform.position, Quaternion.Euler(270, 0, 0)) as GameObject;
+			tmp.transform.parent = transform;
 			//tmp.GetComponent<Cast>().damage = 10;
 			lastTime = Time.time;
 		}

@@ -19,7 +19,7 @@ public class SkillFirePillar : Skill {
 		if (Time.time > lastTime + cooldown)
 		{
 			ausou.Play ();
-			position.y -= 1;
+			position.y -= 1.5f;
 			GameObject tmp = Instantiate(cast, position, Quaternion.Euler(270, 0, 0)) as GameObject;
 			//tmp.GetComponent<Cast>().damage = 10;
 			lastTime = Time.time;

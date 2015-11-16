@@ -6,20 +6,20 @@ public class Enemy : Character {
 	private NavMeshAgent	agent;
 	private Player			player;
 	private Animator		animator;
+	private UIEnemy			ui_enemy;
+
 	private Player			target;
 	private bool			dead = false;
-
 	private float			attack_start_time = 0.0f;
 
-	private int				xp = 20;
-	private int				money = 10;
+	public int				base_xp;
+	public int				inc_xp;
+	public int				base_money;
+	public int				inc_money;
+	public string			name_string;
 	
 	public delegate void	Death();
 	public event Death		Died;
-
-	private UIEnemy				ui_enemy;
-
-	public string			name_string;
 
 	void Start ()
 	{
@@ -29,6 +29,12 @@ public class Enemy : Character {
 		ui_enemy = GameObject.FindGameObjectWithTag ("Enemy UI").GetComponent<UIEnemy> ();
 		target = null;
 		StartCoroutine (SearchPlayer ());
+
+
+		level = player.level;
+		IncStats ();
+		CalculateStats ();
+		hp = hp_max;
 	}
 
 	void OnMouseEnter()
@@ -45,6 +51,15 @@ public class Enemy : Character {
 	void OnMouseExit()
 	{
 		ui_enemy.Enable (false);
+	}
+
+	void IncStats()
+	{
+		con = base_con + (inc_con * level);
+		str = base_str + (inc_str * level);
+		agi = base_agi + (inc_agi * level);
+		armor = base_armor + (inc_armor * level);
+		intel = base_intel + (inc_intel * level);
 	}
 
 	void Update ()
@@ -142,14 +157,14 @@ public class Enemy : Character {
 	public int GiveXP()
 	{
 		if (hp <= 0)
-			return (xp);
+			return (base_xp + (inc_xp * level));
 		return (0);
 	}
 	
 	public int GiveMoney()
 	{
 		if (hp <= 0)
-			return (money);
+			return (base_money + (inc_money * level));
 		return (0);
 	}
 
