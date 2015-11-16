@@ -4,6 +4,8 @@ using System.Collections;
 public class CharaStatsScript : MonoBehaviour {
 
 	private Player					player;
+
+	public int lvl;
 	
 	private Transform				panel;
 	private Transform				upgrade_button;
@@ -14,6 +16,9 @@ public class CharaStatsScript : MonoBehaviour {
 	private Transform				agility_button;
 	private UnityEngine.UI.Text		constitution;
 	private Transform				constitution_button;
+	private UnityEngine.UI.Text		intelligence;
+	private Transform				intelligence_button;
+	private UnityEngine.UI.Text		upgrade_points;
 	private UnityEngine.UI.Text		armor;
 	private UnityEngine.UI.Text		min_dmg;
 	private UnityEngine.UI.Text		max_dmg;
@@ -25,22 +30,31 @@ public class CharaStatsScript : MonoBehaviour {
 	void Start ()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+
 		panel = transform.GetChild (0);
+
 		upgrade_button = transform.GetChild (1);
+
 		level = panel.GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		strength = panel.GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		strength_button = panel.GetChild (1).GetChild (2);
-		agility = panel.GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		agility_button = panel.GetChild (2).GetChild (2);
-		constitution = panel.GetChild (3).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		constitution_button = panel.GetChild (3).GetChild (2);
-		armor = panel.GetChild (4).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		min_dmg = panel.GetChild (5).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		max_dmg = panel.GetChild (6).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		max_hp = panel.GetChild (7).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		current_xp = panel.GetChild (8).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		next_level = panel.GetChild (9).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		money = panel.GetChild (10).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+
+		strength 			= panel.GetChild (1).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		strength_button		= panel.GetChild (1).GetChild (0).GetChild (2);
+		agility				= panel.GetChild (1).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		agility_button		= panel.GetChild (1).GetChild (1).GetChild (2);
+		constitution		= panel.GetChild (1).GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		constitution_button	= panel.GetChild (1).GetChild (2).GetChild (2);
+		intelligence		= panel.GetChild (1).GetChild (3).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		intelligence_button	= panel.GetChild (1).GetChild (3).GetChild (2);
+		upgrade_points		= panel.GetChild (1).GetChild (4).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		
+		armor		= panel.GetChild (2).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		min_dmg		= panel.GetChild (2).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		max_dmg		= panel.GetChild (2).GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		max_hp		= panel.GetChild (2).GetChild (3).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+
+		current_xp	= panel.GetChild (3).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		next_level	= panel.GetChild (3).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		money		= panel.GetChild (3).GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
 
 		StartCoroutine (UpdateStats ());
 	}
@@ -65,10 +79,12 @@ public class CharaStatsScript : MonoBehaviour {
 			strength.text = player.str.ToString();
 			agility.text = player.agi.ToString();
 			constitution.text = player.con.ToString();
+			intelligence.text = player.intel.ToString();
+			upgrade_points.text = player.upgrade_points.ToString();
 			armor.text = player.armor.ToString();
-			min_dmg.text = (player.str / 2).ToString();
-			max_dmg.text = ((player.str / 2) + 4).ToString();
-			max_hp.text = (player.con * 5).ToString();
+			min_dmg.text = player.minDmg.ToString();
+			max_dmg.text = player.maxDmg.ToString();
+			max_hp.text = player.hp_max.ToString();
 			current_xp.text = player.xp.ToString();
 			next_level.text = player.xp_next.ToString();
 			money.text = player.money.ToString();
@@ -78,12 +94,14 @@ public class CharaStatsScript : MonoBehaviour {
 				strength_button.gameObject.SetActive(true);
 				agility_button.gameObject.SetActive(true);
 				constitution_button.gameObject.SetActive(true);
+				intelligence_button.gameObject.SetActive(true);
 			}
 			else
 			{
 				strength_button.gameObject.SetActive(false);
 				agility_button.gameObject.SetActive(false);
 				constitution_button.gameObject.SetActive(false);
+				intelligence_button.gameObject.SetActive(false);
 			}
 
 			yield return new WaitForSeconds (0.1f);

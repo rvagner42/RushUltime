@@ -126,10 +126,6 @@ public class Player : Character {
 				animator.SetBool ("is_attacking", false);
 				if (target.GetAttacked(Random.Range (minDmg, maxDmg + 1), agi) <= 0)
 				{
-					xp += target.GiveXP();
-					if (xp >= xp_next)
-						LevelUp();
-					money += target.GiveMoney();
 					target = null;
 					ui_enemy.Enable (false);
 				}
@@ -166,6 +162,8 @@ public class Player : Character {
 	{
 		for (;;)
 		{
+			if (xp >= xp_next)
+				LevelUp();
 			ui_maya.UpdateUI (hp, hp_max, xp, xp_next, level);
 			if (target != null)
 				ui_enemy.UpdateUI(target.hp, target.hp_max, target.name_string, target.level);

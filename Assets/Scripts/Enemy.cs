@@ -145,6 +145,8 @@ public class Enemy : Character {
 	{
 		GetComponent<Collider> ().enabled = false;
 		GetComponent<NavMeshAgent> ().enabled = false;
+		player.xp += (base_xp + (inc_xp * level));
+		player.money += (base_money + (inc_money * level));
 		yield return new WaitForSeconds (4.0f);
 		while (transform.position.y > -1.0f)
 		{
@@ -152,20 +154,6 @@ public class Enemy : Character {
 			yield return new WaitForSeconds (0.05f);
 		}
 		Destroy (gameObject);
-	}
-
-	public int GiveXP()
-	{
-		if (hp <= 0)
-			return (base_xp + (inc_xp * level));
-		return (0);
-	}
-	
-	public int GiveMoney()
-	{
-		if (hp <= 0)
-			return (base_money + (inc_money * level));
-		return (0);
 	}
 
 	void OnDestroy()

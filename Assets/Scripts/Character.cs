@@ -10,8 +10,8 @@ public class Character : MonoBehaviour {
 	[HideInInspector]public int		intel;
 	[HideInInspector]public int		hp;
 	[HideInInspector]public int		hp_max;
-	protected int					minDmg;
-	protected int					maxDmg;
+	[HideInInspector]public int		minDmg;
+	[HideInInspector]public int		maxDmg;
 	[HideInInspector]public int		level;
 
 	public int						base_str;
