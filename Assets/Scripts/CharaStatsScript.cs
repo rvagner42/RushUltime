@@ -95,6 +95,16 @@ public class CharaStatsScript : MonoBehaviour {
 		panel.gameObject.SetActive (true);
 	}
 
+	public void IncreaseIntelligence()
+	{
+		if (player.upgrade_points > 0)
+		{
+			player.upgrade_points -= 1;
+			player.intel += 1;
+			player.CalculateStats();
+		}
+	}
+
 	public void IncreaseStrength()
 	{
 		if (player.upgrade_points > 0)

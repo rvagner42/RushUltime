@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{7BA55D57-7DA7-3AC3-DBBD-3C9E79295CFE}</ProjectGuid>
+	<ProjectGuid>{8CEAD82C-D928-8D18-9497-09C089C9B5F1}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,14 +45,43 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Casts\Cast.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastBlizzard.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastFirePillar.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastFireball.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastFrostNova.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastHeal.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastIceBlast.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastLifeSteal.cs" />
+     <Compile Include="Assets\Scripts\Casts\CastMeteor.cs" />
+     <Compile Include="Assets\Scripts\Casts\Explosion.cs" />
      <Compile Include="Assets\Scripts\CharaStatsScript.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\MainCamera.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\Skills\Skill.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillBlizzard.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillFirePillar.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillFireball.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillFrostNova.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillHeal.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillIceBlast.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillLifeSteal.cs" />
+     <Compile Include="Assets\Scripts\Skills\SkillMeteor.cs" />
      <Compile Include="Assets\Scripts\UIEnemy.cs" />
      <Compile Include="Assets\Scripts\UIMaya.cs" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -62,6 +91,10 @@
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{55D02914-7D04-8E42-1EE3-6A950D0783F9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

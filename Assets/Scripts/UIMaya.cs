@@ -12,12 +12,12 @@ public class UIMaya : MonoBehaviour {
 
 	void Start ()
 	{
-		hp_bar = transform.GetChild (1).GetComponent<UnityEngine.UI.Image> ();
-		hp_text = transform.GetChild (2).GetComponent<UnityEngine.UI.Text> ();
-		xp_bar = transform.GetChild (4).GetComponent<UnityEngine.UI.Image> ();
-		xp_text = transform.GetChild (5).GetComponent<UnityEngine.UI.Text> ();
-		level_text = transform.GetChild (6).GetComponent<UnityEngine.UI.Text> ();
-		death_screen = transform.GetChild (7);
+		hp_bar = transform.GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Image> ();
+		hp_text = transform.GetChild (2).GetChild (3).GetComponent<UnityEngine.UI.Text> ();
+		xp_bar = transform.GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Image> ();
+		xp_text = transform.GetChild (1).GetChild (2).GetComponent<UnityEngine.UI.Text> ();
+		level_text = transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ();
+		death_screen = transform.GetChild (5);
 	}
 	
 	public void UpdateUI (float hp, float max_hp, float xp, float max_xp, int level)
