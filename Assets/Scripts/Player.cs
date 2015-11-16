@@ -6,6 +6,7 @@ public class Player : Character {
 
 	public Skill currentSkill; // C'est à moi o/
 
+	public int skillPoints;
 	private NavMeshAgent				agent;
 	private Animator					animator;
 	private Enemy						target;
@@ -149,6 +150,7 @@ public class Player : Character {
 		xp_next = xp_next + 100 * level;
 		level += 1;
 		upgrade_points += 5;
+		skillPoints++;
 		IncStats ();
 		CalculateStats ();
 	}
