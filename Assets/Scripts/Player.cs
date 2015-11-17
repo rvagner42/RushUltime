@@ -16,6 +16,8 @@ public class Player : Character {
 	private UIMaya									ui_maya;
 	private UIEnemy									ui_enemy;
 
+	private Transform								weapon_holder;
+
 
 	[HideInInspector]public int						xp = 0;
 	[HideInInspector]public int						xp_next = 150;
@@ -33,6 +35,7 @@ public class Player : Character {
 		ui_maya = GameObject.FindGameObjectWithTag ("Maya UI").GetComponent<UIMaya> ();
 		ui_enemy = GameObject.FindGameObjectWithTag ("Enemy UI").GetComponent<UIEnemy> ();
 		ui_enemy.Enable (false);
+		weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
 		StartCoroutine (UIUpdate ());
 		StartCoroutine (RegenHP ());
 		StartCoroutine (RegenMana ());
@@ -171,7 +174,13 @@ public class Player : Character {
 		{
 			transform.LookAt (target_equip.transform.position);
 			inventory.Add (target_equip);
-			Destroy (target_equip.gameObject);
+	//		weapon_holder.GetChild (0) = target_equip.gameObject;
+			target_equip.transform.parent = weapon_holder;
+			target_equip.transform.localPosition = weapon_holder.GetChild (0).localPosition;
+			target_equip.transform.localRotation = weapon_holder.GetChild (0).localRotation;
+			target_equip.GetComponent<Collider> ().enabled = false;
+			//Destroy (target_equip.GetComponent<Rigidbody> ());
+			//Destroy (target_equip.gameObject);
 			target_equip = null;
 		}
 	}
