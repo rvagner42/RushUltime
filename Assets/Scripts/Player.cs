@@ -147,6 +147,7 @@ public class Player : Character {
 		upgrade_points += 5;
 		IncStats ();
 		CalculateStats ();
+		hp = hp_max;
 	}
 
 	public void IncStats()

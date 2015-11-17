@@ -150,6 +150,7 @@ public class CharaStatsScript : MonoBehaviour {
 			player.upgrade_points -= 1;
 			player.con += 1;
 			player.CalculateStats();
+			player.hp += 5;
 		}
 	}
 }
