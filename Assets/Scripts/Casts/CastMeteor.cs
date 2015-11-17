@@ -21,7 +21,7 @@ public class CastMeteor : Cast {
 	void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.tag == "Enemy")
-			collision.gameObject.GetComponent<Enemy>().hp -= damage;
+			collision.gameObject.GetComponent<Enemy> ().hp -= damage;
 		else
 		{
 			Instantiate(explosion, transform.position, Quaternion.identity);

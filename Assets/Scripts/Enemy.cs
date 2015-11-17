@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ public class Enemy : Character {
 
 	private NavMeshAgent	agent;
 	private Player			player;
-	private Animator		animator;
+ 	private Animator		animator;
 	private UIEnemy			ui_enemy;
 
 	private Player			target;
@@ -19,6 +20,8 @@ public class Enemy : Character {
 	public int				inc_money;
 	public string			name_string;
 	public List<GameObject>	drops;
+
+	private float			view = 10.0f;
 	
 	public delegate void	Death();
 	public event Death		Died;
@@ -41,13 +44,16 @@ public class Enemy : Character {
 
 	void OnMouseEnter()
 	{
-		ui_enemy.Enable (true);
-		ui_enemy.UpdateUI(hp, con * 5, name_string, level);
+		if (!EventSystem.current.IsPointerOverGameObject())
+		{
+			ui_enemy.Enable (true);
+			ui_enemy.UpdateUI(hp, hp_max, name_string, level);
+		}
 	}
 
 	void OnMouseOver()
 	{
-		ui_enemy.UpdateUI(hp, con * 5, name_string, level);
+		ui_enemy.UpdateUI(hp, hp_max, name_string, level);
 	}
 
 	void OnMouseExit()
@@ -57,8 +63,8 @@ public class Enemy : Character {
 
 	void IncStats()
 	{
-		con = base_con + (inc_con * level);
 		str = base_str + (inc_str * level);
+		con = base_con + (inc_con * level);
 		agi = base_agi + (inc_agi * level);
 		armor = base_armor + (inc_armor * level);
 		intel = base_intel + (inc_intel * level);
@@ -68,11 +74,14 @@ public class Enemy : Character {
 	{
 		if (hp > 0)
 		{
+			if (hp < hp_max)
+				view = 100.0f;
 			Move ();
 			Attack ();
 		}
 		if (hp <= 0 && dead == false)
 		{
+			hp = 0;
 			dead = true;
 			animator.SetTrigger("is_dead");
 			StartCoroutine(Die ());
@@ -111,11 +120,13 @@ public class Enemy : Character {
 			if (animator.GetBool ("is_attacking") == false)
 			{
 				animator.SetBool ("is_attacking", true);
+				animator.speed = attack_speed;
 				attack_start_time = Time.time;
 			}
 			else if (Time.time > attack_start_time + animator.GetCurrentAnimatorStateInfo( 0 ).length)
 			{
 				animator.SetBool ("is_attacking", false);
+				animator.speed = 1.0f;
 				if (target.GetAttacked(Random.Range (min_dmg_phys, max_dmg_phys + 1), agi) <= 0)
 				{
 					target = null;
@@ -123,7 +134,10 @@ public class Enemy : Character {
 			}
 		}
 		else if (animator.GetBool ("is_attacking") == true)
+		{
 			animator.SetBool ("is_attacking", false);
+			animator.speed = 1.0f;
+		}
 	}
 
 	IEnumerator SearchPlayer()
@@ -132,7 +146,7 @@ public class Enemy : Character {
 		{
 			RaycastHit hit;
 			
-			if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, 10.0f))
+			if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, view))
 			{
 				if (hit.collider.tag == "Player")
 					target = player;

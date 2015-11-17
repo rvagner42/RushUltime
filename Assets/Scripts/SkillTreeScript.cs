@@ -131,7 +131,7 @@ public class SkillTreeScript : MonoBehaviour {
 			img3Col2.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
 		else
 			img3Col2.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		if ((skill.lvl3Col3 == 0 && player.skillPoints == 0) || (player.level >= 12 || skill.lvl2Col3 < 3))
+		if ((skill.lvl3Col3 == 0 && player.skillPoints == 0) || (player.level < 12 || skill.lvl2Col3 < 3))
 			img3Col3.color = new Color (0.5f, 0.5f, 0.5f, 0.5f);
 		else
 			img3Col3.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);

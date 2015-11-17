@@ -5,12 +5,16 @@ public class CastFrostNova : Cast {
 	
 	private AudioSource ausou;
 	private float lastTime;
+	private Light light;
+
 	
 	// Use this for initialization
 	void Start () {
 		ausou = GetComponent<AudioSource>();
+		light = GetComponent<Light> ();
 		Destroy(gameObject, destroyTime);
 		StartCoroutine (disableParticles ());
+		StartCoroutine (fadeOut ());
 		lastTime = -0.5f;
 	}
 	
@@ -37,5 +41,15 @@ public class CastFrostNova : Cast {
 	{
 		yield return new WaitForSeconds (destroyTime - 0.5f);
 		GetComponent<ParticleSystem> ().Stop ();
+	}
+
+	IEnumerator fadeOut()
+	{
+		yield return new WaitForSeconds (destroyTime - 2.0f);
+		while (light.intensity > 0)
+		{
+			light.intensity -= 0.1f;
+			yield return new WaitForSeconds(0.1f);
+		}
 	}
 }

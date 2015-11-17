@@ -10,6 +10,8 @@ public class Character : MonoBehaviour {
 	[HideInInspector]public int		intel;
 	[HideInInspector]public int		hp;
 	[HideInInspector]public int		hp_max;
+	[HideInInspector]public int		mana;
+	[HideInInspector]public int		mana_max;
 	[HideInInspector]public int		min_dmg_phys;
 	[HideInInspector]public int		max_dmg_phys;
 	[HideInInspector]public int		min_dmg_mag;
@@ -28,6 +30,8 @@ public class Character : MonoBehaviour {
 	public int						inc_armor;
 	public int						inc_intel;
 
+	public float					attack_speed;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -39,6 +43,7 @@ public class Character : MonoBehaviour {
 		intel = base_intel;
 		CalculateStats ();
 		hp = hp_max;
+		mana = mana_max;
 	}
 
 	public int GetAttacked(int dmg, int attacker_agi)
@@ -58,7 +63,8 @@ public class Character : MonoBehaviour {
 
 	public void CalculateStats()
 	{
-		hp_max = 5 * con;
+		hp_max = 5 * con + str;
+		mana_max = 5 * intel;
 		min_dmg_phys = str - (str / 10);
 		max_dmg_phys = str + (str / 10);
 		min_dmg_mag = intel - (intel / 10);

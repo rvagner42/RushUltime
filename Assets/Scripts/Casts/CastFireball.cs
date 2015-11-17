@@ -10,7 +10,7 @@ public class CastFireball : Cast {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
-		StartCoroutine(Destroy());
+		Destroy(gameObject, destroyTime);
 	}
 	
 	// Update is called once per frame

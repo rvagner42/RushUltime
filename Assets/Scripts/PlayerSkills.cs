@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerSkills : MonoBehaviour {
 
+	public Player player;
+
 	public int lvl1Col1;
 	public int lvl1Col2;
 	public int lvl1Col3;
@@ -16,6 +18,8 @@ public class PlayerSkills : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+
 		lvl1Col1 = 0;
 		lvl1Col2 = 0;
 		lvl1Col3 = 0;

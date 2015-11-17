@@ -3,9 +3,21 @@ using System.Collections;
 
 public abstract class Skill : MonoBehaviour {
 
-	public int level;
-	public int mana;
-	public float cooldown;
+	public int baseMinDamage;
+	public int baseMaxDamage;
+	public float intMult;	
+	public int lvlMinDamage;
+	public int lvlMaxDamage;
+
+	public int baseMana;
+	public int lvlMana;
+
+	public float baseCooldown;
+	public float lvlCooldown;
+
+	public float baseDuration;
+	public float lvlDuration;
+
 	public GameObject cast;
 	[HideInInspector]
 	public AudioSource ausou;
