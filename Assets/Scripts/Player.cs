@@ -57,7 +57,10 @@ public class Player : Character {
 		if (agent.destination == transform.position && animator.GetBool ("is_walking"))
 			animator.SetBool ("is_walking", false);
 		if (animator.GetBool ("is_attacking") == true && target == null)
+		{
 			animator.SetBool ("is_attacking", false);
+			animator.speed = 1.0f;
+		}
 	}
 
 	void CheckClick()
@@ -120,12 +123,14 @@ public class Player : Character {
 			{
 				agent.destination = transform.position;
 				animator.SetBool ("is_attacking", true);
+				animator.speed = 10.0f;
 				attack_start_time = Time.time;
 			}
-			else if (Time.time > attack_start_time + 0.6f)
+			else if (Time.time > attack_start_time + (animator.GetCurrentAnimatorStateInfo( 0 ).length))
 			{
 				animator.SetBool ("is_attacking", false);
-				if (target.GetAttacked(Random.Range (minDmg, maxDmg + 1), agi) <= 0)
+				animator.speed = 1.0f;
+				if (target.GetAttacked(Random.Range (min_dmg_phys, max_dmg_phys + 1), agi) <= 0)
 				{
 					target = null;
 					ui_enemy.Enable (false);

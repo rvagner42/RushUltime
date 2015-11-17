@@ -113,10 +113,10 @@ public class Enemy : Character {
 				animator.SetBool ("is_attacking", true);
 				attack_start_time = Time.time;
 			}
-			else if (Time.time > attack_start_time + 1.2f)
+			else if (Time.time > attack_start_time + animator.GetCurrentAnimatorStateInfo( 0 ).length)
 			{
 				animator.SetBool ("is_attacking", false);
-				if (target.GetAttacked(Random.Range (minDmg, maxDmg + 1), agi) <= 0)
+				if (target.GetAttacked(Random.Range (min_dmg_phys, max_dmg_phys + 1), agi) <= 0)
 				{
 					target = null;
 				}

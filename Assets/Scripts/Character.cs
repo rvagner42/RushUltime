@@ -10,8 +10,10 @@ public class Character : MonoBehaviour {
 	[HideInInspector]public int		intel;
 	[HideInInspector]public int		hp;
 	[HideInInspector]public int		hp_max;
-	[HideInInspector]public int		minDmg;
-	[HideInInspector]public int		maxDmg;
+	[HideInInspector]public int		min_dmg_phys;
+	[HideInInspector]public int		max_dmg_phys;
+	[HideInInspector]public int		min_dmg_mag;
+	[HideInInspector]public int		max_dmg_mag;
 	[HideInInspector]public int		level;
 
 	public int						base_str;
@@ -42,9 +44,11 @@ public class Character : MonoBehaviour {
 	public int GetAttacked(int dmg, int attacker_agi)
 	{
 		int hit = 75 + attacker_agi - agi;
-		if (Random.Range (0, 101) < hit)
+		if (Random.Range (0, 100) < hit + 1.0f)
 		{
-			int totalDmg = dmg * (1 - armor / 200);
+			int totalDmg = dmg - armor;
+			if (totalDmg < dmg / 4)
+				totalDmg = dmg / 4;
 			hp -= totalDmg;
 			if (hp < 0)
 				hp = 0;
@@ -55,7 +59,9 @@ public class Character : MonoBehaviour {
 	public void CalculateStats()
 	{
 		hp_max = 5 * con;
-		minDmg = str / 2;
-		maxDmg = minDmg + 4;
+		min_dmg_phys = str - (str / 10);
+		max_dmg_phys = str + (str / 10);
+		min_dmg_mag = intel - (intel / 10);
+		max_dmg_mag = intel + (intel / 10);
 	}
 }

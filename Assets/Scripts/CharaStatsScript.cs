@@ -20,8 +20,10 @@ public class CharaStatsScript : MonoBehaviour {
 	private Transform				intelligence_button;
 	private UnityEngine.UI.Text		upgrade_points;
 	private UnityEngine.UI.Text		armor;
-	private UnityEngine.UI.Text		min_dmg;
-	private UnityEngine.UI.Text		max_dmg;
+	private UnityEngine.UI.Text		min_dmg_phys;
+	private UnityEngine.UI.Text		max_dmg_phys;
+	private UnityEngine.UI.Text		min_dmg_mag;
+	private UnityEngine.UI.Text		max_dmg_mag;
 	private UnityEngine.UI.Text		max_hp;
 	private UnityEngine.UI.Text		current_xp;
 	private UnityEngine.UI.Text		next_level;
@@ -47,10 +49,12 @@ public class CharaStatsScript : MonoBehaviour {
 		intelligence_button	= panel.GetChild (1).GetChild (3).GetChild (2);
 		upgrade_points		= panel.GetChild (1).GetChild (4).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
 		
-		armor		= panel.GetChild (2).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		min_dmg		= panel.GetChild (2).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		max_dmg		= panel.GetChild (2).GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
-		max_hp		= panel.GetChild (2).GetChild (3).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		armor			= panel.GetChild (2).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		min_dmg_phys	= panel.GetChild (2).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		max_dmg_phys	= panel.GetChild (2).GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		min_dmg_mag		= panel.GetChild (2).GetChild (3).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		max_dmg_mag		= panel.GetChild (2).GetChild (4).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
+		max_hp			= panel.GetChild (2).GetChild (5).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
 
 		current_xp	= panel.GetChild (3).GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
 		next_level	= panel.GetChild (3).GetChild (1).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
@@ -82,8 +86,10 @@ public class CharaStatsScript : MonoBehaviour {
 			intelligence.text = player.intel.ToString();
 			upgrade_points.text = player.upgrade_points.ToString();
 			armor.text = player.armor.ToString();
-			min_dmg.text = player.minDmg.ToString();
-			max_dmg.text = player.maxDmg.ToString();
+			min_dmg_phys.text = player.min_dmg_phys.ToString();
+			max_dmg_phys.text = player.max_dmg_phys.ToString();
+			min_dmg_mag.text = player.min_dmg_mag.ToString();
+			max_dmg_mag.text = player.max_dmg_mag.ToString();
 			max_hp.text = player.hp_max.ToString();
 			current_xp.text = player.xp.ToString();
 			next_level.text = player.xp_next.ToString();
@@ -149,6 +155,7 @@ public class CharaStatsScript : MonoBehaviour {
 		{
 			player.upgrade_points -= 1;
 			player.con += 1;
+			player.armor += 1;
 			player.CalculateStats();
 			if (player.hp > 0)
 				player.hp += 5;
