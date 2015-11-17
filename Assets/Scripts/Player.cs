@@ -44,7 +44,7 @@ public class Player : Character {
 				animator.SetTrigger("is_dead");
 				ui_maya.DeathUI();
 			}
-			if (Input.GetKeyDown (KeyCode.N))
+			if (Input.GetKeyDown (KeyCode.KeypadPlus))
 				LevelUp ();
 		}
 	}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Enemy : Character {
 
@@ -17,6 +18,7 @@ public class Enemy : Character {
 	public int				base_money;
 	public int				inc_money;
 	public string			name_string;
+	public List<GameObject>	drops;
 	
 	public delegate void	Death();
 	public event Death		Died;
@@ -147,12 +149,15 @@ public class Enemy : Character {
 		GetComponent<NavMeshAgent> ().enabled = false;
 		player.xp += (base_xp + (inc_xp * level));
 		player.money += (base_money + (inc_money * level));
+		if (Random.Range (0, 2) == 0)
+		Instantiate (drops[Random.Range (0, drops.Count)], transform.position, transform.rotation);
 		yield return new WaitForSeconds (4.0f);
 		while (transform.position.y > -1.0f)
 		{
 			transform.Translate (Vector3.down * 0.05f);
 			yield return new WaitForSeconds (0.05f);
 		}
+	
 		Destroy (gameObject);
 	}
 
