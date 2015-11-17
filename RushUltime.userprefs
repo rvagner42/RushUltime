@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../RushUltime/Assets/Scripts/CureItem.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
     <Files>
-      <File FileName="../RushUltime/Assets/Scripts/CureItem.cs" Line="18" Column="23" />
-      <File FileName="Assets/Scripts/Enemy.cs" Line="157" Column="3" />
+      <File FileName="Assets/Scripts/CureItem.cs" Line="27" Column="3" />
+      <File FileName="Assets/Scripts/Enemy.cs" Line="116" Column="49" />
       <File FileName="Assets/Scripts/Character.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Player.cs" Line="150" Column="15" />
+      <File FileName="Assets/Scripts/Player.cs" Line="152" Column="20" />
       <File FileName="Assets/Scripts/UIMaya.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/CharaStatsScript.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/UIEnemy.cs" Line="1" Column="1" />

@@ -12,6 +12,7 @@ public class CureItem : MonoBehaviour
 	void Start ()
 	{
 		init_time = Time.time;
+		Destroy (gameObject, 10.0f);
 	}
 
 	void OnTriggerEnter(Collider collider)

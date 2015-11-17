@@ -18,6 +18,7 @@ public class Player : Character {
 	[HideInInspector]public int			xp_next = 150;
 	[HideInInspector]public int			money = 0;
 	[HideInInspector]public int			upgrade_points = 0;
+	[HideInInspector]public int			skillPoints = 0;
 
 	void Start ()
 	{
@@ -148,6 +149,7 @@ public class Player : Character {
 		IncStats ();
 		CalculateStats ();
 		hp = hp_max;
+		skillPoints += 1;
 	}
 
 	public void IncStats()

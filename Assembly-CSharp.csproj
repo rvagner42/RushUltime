@@ -62,6 +62,8 @@
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\MainCamera.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\PlayerSkills.cs" />
+     <Compile Include="Assets\Scripts\SkillTreeScript.cs" />
      <Compile Include="Assets\Scripts\Skills\Skill.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillBlizzard.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillFirePillar.cs" />
