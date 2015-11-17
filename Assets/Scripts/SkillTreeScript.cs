@@ -3,10 +3,30 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SkillTreeScript : MonoBehaviour {
+
+	public static GameObject item;
+
+	public Skill Skill1Col1;
+	public Skill Skill1Col2;
+	public Skill Skill1Col3;
+	public Skill Skill2Col1;
+	public Skill Skill2Col2;
+	public Skill Skill2Col3;
+	public Skill Skill3Col1;
+	public Skill Skill3Col2;
+	public Skill Skill3Col3;
 	
 	private PlayerSkills skill;
 	private Player player;
-	
+
+	private Transform skillBar;
+
+	private Image skillQ;
+	private Image skillW;
+	private Image skillE;
+	private Image skillR;
+	private Image skillT;
+
 	private Transform panel;
 	private Transform upgradeButton;
 	
@@ -29,7 +49,17 @@ public class SkillTreeScript : MonoBehaviour {
 	private Image img3Col1;
 	private Image img3Col2;
 	private Image img3Col3;
-	
+
+	private bool onLvl1Col1 = false;
+	private bool onLvl1Col2 = false;
+	private bool onLvl1Col3 = false;
+	private bool onLvl2Col1 = false;
+	private bool onLvl2Col2 = false;
+	private bool onLvl2Col3 = false;
+	private bool onLvl3Col1 = false;
+	private bool onLvl3Col2 = false;
+	private bool onLvl3Col3 = false;
+
 	
 	private Text freePoints;
 	
@@ -38,6 +68,14 @@ public class SkillTreeScript : MonoBehaviour {
 	{
 		skill = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		skillBar = GameObject.FindGameObjectWithTag ("SkillBar").transform;
+
+		skillQ = skillBar.GetChild (0).GetComponent<Image>();
+		skillW = skillBar.GetChild (1).GetComponent<Image>();
+		skillE = skillBar.GetChild (2).GetComponent<Image>();
+		skillR = skillBar.GetChild (3).GetComponent<Image>();
+		skillT = skillBar.GetChild (4).GetComponent<Image>();
+
 		panel = transform.GetChild (0);
 		upgradeButton = transform.GetChild (1); 
 		
@@ -81,6 +119,15 @@ public class SkillTreeScript : MonoBehaviour {
 			upgradeButton.gameObject.SetActive(true);
 		else
 			upgradeButton.gameObject.SetActive(false);
+
+		if (Input.GetKeyDown (KeyCode.Q))
+		{
+			if (onLvl1Col1 == true)
+			{
+				player.skillQ = Skill1Col1;
+				skillQ.sprite = img1Col1.sprite;
+			}
+		}
 	}
 	
 	public void UpdateSkills()
@@ -242,5 +289,95 @@ public class SkillTreeScript : MonoBehaviour {
 			player.skillPoints--;
 			UpdateSkills ();
 		}
+	}
+
+	public void OnLvl1Col1()
+	{
+		onLvl1Col1 = true;
+	}
+
+	public void OffLvl1Col1()
+	{
+		onLvl1Col1 = false;
+	}
+
+	public void OnLvl1Col2()
+	{
+		onLvl1Col2 = true;
+	}
+	
+	public void OffLvl1Col2()
+	{
+		onLvl1Col2 = false;
+	}
+
+	public void OnLvl1Col3()
+	{
+		onLvl1Col3 = true;
+	}
+	
+	public void OffLvl1Col3()
+	{
+		onLvl1Col3 = false;
+	}
+
+	public void OnLvl2Col1()
+	{
+		onLvl2Col1 = true;
+	}
+	
+	public void OffLvl2Col1()
+	{
+		onLvl2Col1 = false;
+	}
+	
+	public void OnLvl2Col2()
+	{
+		onLvl2Col2 = true;
+	}
+	
+	public void OffLvl2Col2()
+	{
+		onLvl2Col2 = false;
+	}
+	
+	public void OnLvl2Col3()
+	{
+		onLvl2Col3 = true;
+	}
+	
+	public void OffLvl2Col3()
+	{
+		onLvl2Col3 = false;
+	}
+
+	public void OnLvl3Col1()
+	{
+		onLvl3Col1 = true;
+	}
+	
+	public void OffLvl3Col1()
+	{
+		onLvl3Col1 = false;
+	}
+	
+	public void OnLvl3Col2()
+	{
+		onLvl3Col2 = true;
+	}
+	
+	public void OffLvl3Col2()
+	{
+		onLvl3Col2 = false;
+	}
+	
+	public void OnLvl3Col3()
+	{
+		onLvl3Col3 = true;
+	}
+	
+	public void OffLvl3Col3()
+	{
+		onLvl3Col3 = false;
 	}
 }

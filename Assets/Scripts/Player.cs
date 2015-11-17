@@ -5,6 +5,14 @@ using System.Collections.Generic;
 
 public class Player : Character {
 
+	/// <summary>
+	/// Pouet
+	/// </summary>
+
+	public Skill skillQ;
+
+
+
 	public Skill									currentSkill;
 
 	private NavMeshAgent							agent;
