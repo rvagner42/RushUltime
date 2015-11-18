@@ -3,9 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SkillTreeScript : MonoBehaviour {
-
-	public static GameObject item;
-
+	
 	private Skill Skill1Col1;
 	private Skill Skill1Col2;
 	private Skill Skill1Col3;
@@ -20,6 +18,9 @@ public class SkillTreeScript : MonoBehaviour {
 	private Player player;
 
 	private Transform skillBar;
+	private Transform tooltip;
+	private Text tooltipTitle;
+	private Text tooltipDesc;
 
 	private Image skillQ;
 	private Image skillW;
@@ -29,7 +30,7 @@ public class SkillTreeScript : MonoBehaviour {
 
 	private Transform panel;
 	private Transform upgradeButton;
-	
+
 	private Text lvl1Col1;
 	private Text lvl1Col2;
 	private Text lvl1Col3;
@@ -60,15 +61,20 @@ public class SkillTreeScript : MonoBehaviour {
 	private bool onLvl3Col2 = false;
 	private bool onLvl3Col3 = false;
 
-	
 	private Text freePoints;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		panel = transform.GetChild (0);
+		upgradeButton = transform.GetChild (1); 
+
 		skill = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
 		skillBar = GameObject.FindGameObjectWithTag ("SkillBar").transform;
+		tooltip = GameObject.FindGameObjectWithTag ("Tooltip").transform.GetChild(0).transform;
+		tooltipTitle = tooltip.GetChild (0).GetChild (0).GetComponent<Text>();
+		tooltipDesc = tooltip.GetChild (1).GetChild (0).GetComponent<Text>();
 
 		Skill1Col1 = skill.transform.GetChild (0).GetComponent<Skill>();
 		Skill1Col2 = skill.transform.GetChild (1).GetComponent<Skill>();
@@ -86,9 +92,7 @@ public class SkillTreeScript : MonoBehaviour {
 		skillR = skillBar.GetChild (3).GetComponent<Image>();
 		skillRightMouse = skillBar.GetChild (4).GetComponent<Image>();
 
-		panel = transform.GetChild (0);
-		upgradeButton = transform.GetChild (1); 
-		
+
 		lvl1Col1 = panel.GetChild (1).GetChild(0).GetChild (1).GetChild (0).GetComponent<Text> ();
 		lvl1Col2 = panel.GetChild (1).GetChild(0).GetChild (1).GetChild (1).GetComponent<Text> ();
 		lvl1Col3 = panel.GetChild (1).GetChild(0).GetChild (1).GetChild (2).GetComponent<Text> ();
@@ -121,15 +125,11 @@ public class SkillTreeScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.N))
-		{
-			panel.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
-		}
 		if (player.skillPoints > 0)
 			upgradeButton.gameObject.SetActive(true);
 		else
 			upgradeButton.gameObject.SetActive(false);
-
+		checkTooltip ();
 		if (Input.GetMouseButtonDown (1))
 		{
 			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
@@ -428,8 +428,172 @@ public class SkillTreeScript : MonoBehaviour {
 				skillR.color = new Color (1f, 1f, 1f, 1f);
 			}
 		}
+		if (Input.GetKeyDown (KeyCode.N))
+		{
+			onLvl1Col1 = false;
+			onLvl1Col2 = false;
+			onLvl1Col3 = false;
+			onLvl2Col1 = false;
+			onLvl2Col2 = false;
+			onLvl2Col3 = false;
+			onLvl3Col1 = false;
+			onLvl3Col2 = false;
+			onLvl3Col3 = false;
+			tooltip.gameObject.SetActive (false);
+			panel.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
+		}
 
 
+	}
+
+	void checkTooltip()
+	{
+		if (onLvl1Col1 == true)
+		{
+			tooltipTitle.text = "Fireball";
+			tooltipDesc.text = "Creates a ball of fire.";
+			if (skill.lvl1Col1 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill1Col1.baseMinDamage + (Skill1Col1.lvlMinDamage * skill.lvl1Col1) + Mathf.RoundToInt(Skill1Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col1.baseMaxDamage + (Skill1Col1.lvlMaxDamage * skill.lvl1Col1) + Mathf.RoundToInt(Skill1Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col1.baseMana + (Skill1Col1.lvlMana * skill.lvl1Col1)).ToString() +
+						"\nCooldown: " + (Skill1Col1.baseCooldown + (Skill1Col1.lvlCooldown * skill.lvl1Col1)).ToString() + " sec";
+			if (skill.lvl1Col1 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill1Col1.baseMinDamage + (Skill1Col1.lvlMinDamage * (skill.lvl1Col1 + 1)) + Mathf.RoundToInt(Skill1Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col1.baseMaxDamage + (Skill1Col1.lvlMaxDamage * (skill.lvl1Col1 + 1)) + Mathf.RoundToInt(Skill1Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col1.baseMana + (Skill1Col1.lvlMana * (skill.lvl1Col1 + 1))).ToString() +
+					"\nCooldown: " + (Skill1Col1.baseCooldown + (Skill1Col1.lvlCooldown * (skill.lvl1Col1 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl1Col2 == true)
+		{
+			tooltipTitle.text = "Heal";
+			tooltipDesc.text = "Heals yourself.";
+			if (skill.lvl1Col2 > 0)
+				tooltipDesc.text += "\n\nHP: " + (Skill1Col2.baseMinDamage + (Skill1Col2.lvlMinDamage * skill.lvl1Col2) + Mathf.RoundToInt(Skill1Col2.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col2.baseMaxDamage + (Skill1Col2.lvlMaxDamage * skill.lvl1Col2) + Mathf.RoundToInt(Skill1Col2.intMult * player.min_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col2.baseMana + (Skill1Col2.lvlMana * skill.lvl1Col2)).ToString() +
+					"\nCooldown: " + (Skill1Col2.baseCooldown + (Skill1Col2.lvlCooldown * skill.lvl1Col2)).ToString() + " sec";
+			if (skill.lvl1Col2 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nHP: " + (Skill1Col2.baseMinDamage + (Skill1Col2.lvlMinDamage * (skill.lvl1Col2 + 1)) + Mathf.RoundToInt(Skill1Col2.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col2.baseMaxDamage + (Skill1Col2.lvlMaxDamage * (skill.lvl1Col2 + 1)) + Mathf.RoundToInt(Skill1Col2.intMult * player.min_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col2.baseMana + (Skill1Col2.lvlMana * (skill.lvl1Col2 + 1))).ToString() +
+					"\nCooldown: " + (Skill1Col2.baseCooldown + (Skill1Col2.lvlCooldown * (skill.lvl1Col2 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl1Col3 == true)
+		{
+			tooltipTitle.text = "Ice Blast";
+			tooltipDesc.text = "Creates a bolt of ice.";
+			if (skill.lvl1Col3 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill1Col3.baseMinDamage + (Skill1Col3.lvlMinDamage * skill.lvl1Col3) + Mathf.RoundToInt(Skill1Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col3.baseMaxDamage + (Skill1Col3.lvlMaxDamage * skill.lvl1Col3) + Mathf.RoundToInt(Skill1Col3.intMult * player.max_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col3.baseMana + (Skill1Col3.lvlMana * skill.lvl1Col3)).ToString() +
+					"\nCooldown: " + (Skill1Col3.baseCooldown + (Skill1Col3.lvlCooldown * skill.lvl1Col3)).ToString() + " sec";
+			if (skill.lvl1Col3 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill1Col3.baseMinDamage + (Skill1Col3.lvlMinDamage * (skill.lvl1Col3 + 1)) + Mathf.RoundToInt(Skill1Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill1Col3.baseMaxDamage + (Skill1Col3.lvlMaxDamage * (skill.lvl1Col3 + 1)) + Mathf.RoundToInt(Skill1Col3.intMult * player.min_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill1Col3.baseMana + (Skill1Col3.lvlMana * (skill.lvl1Col3 + 1))).ToString() +
+					"\nCooldown: " + (Skill1Col3.baseCooldown + (Skill1Col3.lvlCooldown * (skill.lvl1Col3 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl2Col1 == true)
+		{
+			tooltipTitle.text = "Pillar of Fire";
+			tooltipDesc.text = "Creates a fire that burns your enemies over the time.";
+			if (skill.lvl2Col1 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill2Col1.baseMinDamage + (Skill2Col1.lvlMinDamage * skill.lvl2Col1) + Mathf.RoundToInt(Skill2Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill2Col1.baseMaxDamage + (Skill2Col1.lvlMaxDamage * skill.lvl2Col1) + Mathf.RoundToInt(Skill2Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill2Col1.baseDuration + (Skill2Col1.lvlDuration * skill.lvl2Col1)).ToString() + " sec" +
+					"\nMana Consumption " + (Skill2Col1.baseMana + (Skill2Col1.lvlMana * skill.lvl2Col1)).ToString() +
+					"\nCooldown: " + (Skill2Col1.baseCooldown + (Skill2Col1.lvlCooldown * skill.lvl2Col1)).ToString() + " sec";
+			if (skill.lvl2Col1 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill2Col1.baseMinDamage + (Skill2Col1.lvlMinDamage * (skill.lvl2Col1 + 1)) + Mathf.RoundToInt(Skill2Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill2Col1.baseMaxDamage + (Skill2Col1.lvlMaxDamage * (skill.lvl2Col1 + 1)) + Mathf.RoundToInt(Skill2Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill2Col1.baseDuration + (Skill2Col1.lvlDuration * (skill.lvl2Col1 + 1))).ToString() + "sec" + 
+					"\nMana Consumption " + (Skill2Col1.baseMana + (Skill2Col1.lvlMana * (skill.lvl2Col1 + 1))).ToString() +
+					"\nCooldown: " + (Skill2Col1.baseCooldown + (Skill2Col1.lvlCooldown * (skill.lvl2Col1 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl2Col2 == true)
+		{
+			tooltipTitle.text = "Wind Blessing";
+			tooltipDesc.text = "Temporarily increases your attack speed.";
+			if (skill.lvl2Col2 > 0)
+				tooltipDesc.text += "\n\nAttack Speed: " + (100 + skill.lvl2Col2 * 5).ToString() + "%" + 
+					"\nDuration: " + (Skill2Col2.baseDuration + (Skill2Col2.lvlDuration * skill.lvl2Col2)).ToString() + " sec" +
+					"\nMana Consumption " + (Skill2Col2.baseMana + (Skill2Col2.lvlMana * skill.lvl2Col2)).ToString() +
+					"\nCooldown: " + (Skill2Col2.baseCooldown + (Skill2Col2.lvlCooldown * skill.lvl2Col2)).ToString() + " sec";
+			if (skill.lvl2Col2 < 20)
+				tooltipDesc.text += "\n\nNext Level:" + "\nAttack Speed: " + (100 + (skill.lvl2Col2 + 1) * 5).ToString() + "%" + 
+					"\nDuration: " + (Skill2Col2.baseDuration + (Skill2Col2.lvlDuration * (skill.lvl2Col2 + 1))).ToString() + " sec" + 
+					"\nMana Consumption " + (Skill2Col2.baseMana + (Skill2Col2.lvlMana * (skill.lvl2Col2 + 1))).ToString() +
+					"\nCooldown: " + (Skill2Col2.baseCooldown + (Skill2Col2.lvlCooldown * (skill.lvl2Col2 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl2Col3 == true)
+		{
+			tooltipTitle.text = "Frost Nova";
+			tooltipDesc.text = "Creates an expanding ring of ice around you.";
+			if (skill.lvl2Col3 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill2Col3.baseMinDamage + (Skill2Col3.lvlMinDamage * skill.lvl2Col3) + Mathf.RoundToInt(Skill2Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill2Col3.baseMaxDamage + (Skill2Col3.lvlMaxDamage * skill.lvl2Col3) + Mathf.RoundToInt(Skill2Col3.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill2Col3.baseDuration + (Skill2Col3.lvlDuration * skill.lvl2Col3)).ToString() + " sec" +
+					"\nMana Consumption " + (Skill2Col3.baseMana + (Skill2Col3.lvlMana * skill.lvl2Col3)).ToString() +
+					"\nCooldown: " + (Skill2Col3.baseCooldown + (Skill2Col3.lvlCooldown * skill.lvl2Col3)).ToString() + " sec";
+			if (skill.lvl2Col3 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill2Col3.baseMinDamage + (Skill2Col3.lvlMinDamage * (skill.lvl2Col3 + 1)) + Mathf.RoundToInt(Skill2Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill2Col3.baseMaxDamage + (Skill2Col3.lvlMaxDamage * (skill.lvl2Col3 + 1)) + Mathf.RoundToInt(Skill2Col3.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill2Col3.baseDuration + (Skill2Col3.lvlDuration * (skill.lvl2Col3 + 1))).ToString() + " sec" + 
+					"\nMana Consumption " + (Skill2Col3.baseMana + (Skill2Col3.lvlMana * (skill.lvl2Col3 + 1))).ToString() +
+					"\nCooldown: " + (Skill2Col3.baseCooldown + (Skill2Col3.lvlCooldown * (skill.lvl2Col3 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl3Col1 == true)
+		{
+			tooltipTitle.text = "Meteor";
+			tooltipDesc.text = " Draws down a meteor from the heavens to smash your enemies.";
+			if (skill.lvl3Col1 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill3Col1.baseMinDamage + (Skill3Col1.lvlMinDamage * skill.lvl3Col1) + Mathf.RoundToInt(Skill3Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill3Col1.baseMaxDamage + (Skill3Col1.lvlMaxDamage * skill.lvl3Col1) + Mathf.RoundToInt(Skill3Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill3Col1.baseMana + (Skill3Col1.lvlMana * skill.lvl3Col1)).ToString() +
+					"\nCooldown: " + (Skill3Col1.baseCooldown + (Skill3Col1.lvlCooldown * skill.lvl3Col1)).ToString() + " sec";
+			if (skill.lvl3Col1 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill3Col1.baseMinDamage + (Skill3Col1.lvlMinDamage * (skill.lvl3Col1 + 1)) + Mathf.RoundToInt(Skill3Col1.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill3Col1.baseMaxDamage + (Skill3Col1.lvlMaxDamage * (skill.lvl3Col1 + 1)) + Mathf.RoundToInt(Skill3Col1.intMult * player.max_dmg_mag)).ToString() +
+					"\nMana Consumption " + (Skill3Col1.baseMana + (Skill3Col1.lvlMana * (skill.lvl3Col1 + 1))).ToString() +
+					"\nCooldown: " + (Skill3Col1.baseCooldown + (Skill3Col1.lvlCooldown * (skill.lvl3Col1 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl3Col2 == true)
+		{
+			tooltipTitle.text = "Fury";
+			tooltipDesc.text = " Passive - Massively adds damage to your weapon.";
+			if (skill.lvl3Col2 > 0)
+				tooltipDesc.text += "\n\nMultiplier: " + (1 + skill.lvl3Col2 * 0.05f).ToString();
+			if (skill.lvl3Col2 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nMultiplier: " + (1 + (skill.lvl3Col2 + 1) * 0.05f);
+			tooltip.gameObject.SetActive (true);
+		}
+		else if (onLvl3Col3 == true)
+		{
+			tooltipTitle.text = "Blizzard";
+			tooltipDesc.text = " Summons an ice storm to rain cold death onto your enemies.";
+			if (skill.lvl3Col3 > 0)
+				tooltipDesc.text += "\n\nDamage: " + (Skill3Col3.baseMinDamage + (Skill3Col3.lvlMinDamage * skill.lvl3Col3) + Mathf.RoundToInt(Skill3Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill3Col3.baseMaxDamage + (Skill3Col3.lvlMaxDamage * skill.lvl3Col3) + Mathf.RoundToInt(Skill3Col3.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill3Col3.baseDuration + (Skill3Col3.lvlDuration * skill.lvl3Col3)).ToString() + " sec" +
+					"\nMana Consumption " + (Skill3Col3.baseMana + (Skill3Col3.lvlMana * skill.lvl3Col3)).ToString() +
+					"\nCooldown: " + (Skill3Col3.baseCooldown + (Skill3Col3.lvlCooldown * skill.lvl3Col3)).ToString() + " sec";
+			if (skill.lvl3Col3 < 20)
+				tooltipDesc.text += "\n\nNext level:" + "\nDamage: " + (Skill3Col3.baseMinDamage + (Skill3Col3.lvlMinDamage * (skill.lvl3Col3 + 1)) + Mathf.RoundToInt(Skill3Col3.intMult * player.min_dmg_mag)).ToString() +
+					" ~ " + (Skill3Col3.baseMaxDamage + (Skill3Col3.lvlMaxDamage * (skill.lvl3Col3 + 1)) + Mathf.RoundToInt(Skill3Col3.intMult * player.max_dmg_mag)).ToString() +
+					"\nDuration: " + (Skill3Col3.baseDuration + (Skill3Col3.lvlDuration * (skill.lvl3Col3 + 1))).ToString() + " sec" + 
+					"\nMana Consumption " + (Skill3Col3.baseMana + (Skill3Col3.lvlMana * (skill.lvl3Col3 + 1))).ToString() +
+					"\nCooldown: " + (Skill3Col3.baseCooldown + (Skill3Col3.lvlCooldown * (skill.lvl3Col3 + 1))).ToString() + " sec";
+			tooltip.gameObject.SetActive (true);
+		}
+		else
+			tooltip.gameObject.SetActive (false);
 	}
 	
 	public void UpdateSkills()

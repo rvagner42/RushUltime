@@ -8,7 +8,7 @@ public class SkillLifeSteal: Skill {
 	private float cooldown;
 	private int mana;
 	private float duration;
-	
+
 	// Use this for initialization
 	void Start ()
 	{

@@ -77,6 +77,14 @@ public class CharaStatsScript : MonoBehaviour {
 	{
 		for (;;)
 		{
+			int added_min = 0;
+			int added_max = 0;
+			if (player.equipped != null)
+			{
+				added_min = player.equipped.added_min;
+				added_max = player.equipped.added_max;
+			}
+
 			level.text = "( Lvl " + player.level.ToString() + " )";
 			strength.text = player.str.ToString();
 			agility.text = player.agi.ToString();
@@ -84,11 +92,11 @@ public class CharaStatsScript : MonoBehaviour {
 			intelligence.text = player.intel.ToString();
 			upgrade_points.text = player.upgrade_points.ToString();
 			armor.text = player.armor.ToString();
-			min_dmg_phys.text = player.min_dmg_phys.ToString();
-			max_dmg_phys.text = player.max_dmg_phys.ToString();
+			min_dmg_phys.text = (player.min_dmg_phys + added_min).ToString();
+			max_dmg_phys.text = (player.max_dmg_phys + added_max).ToString();
 			min_dmg_mag.text = player.min_dmg_mag.ToString();
 			max_dmg_mag.text = player.max_dmg_mag.ToString();
-			attack_speed.text = player.attack_speed.ToString();
+			attack_speed.text = player.attack_speed.ToString("F2");
 			current_xp.text = player.xp.ToString();
 			next_level.text = player.xp_next.ToString();
 			money.text = player.money.ToString();

@@ -10,6 +10,9 @@ public class EquipmentData : ScriptableObject
 	public Sprite						sprite;
 	public string						name;
 
+	public int							added_min;
+	public int							added_max;
+
 	public Transform					weapon_holder;
 	
 	void Start()
@@ -17,18 +20,8 @@ public class EquipmentData : ScriptableObject
 
 	}
 
-	public void Equip()
-	{
-		weapon_holder.GetChild (0).gameObject.SetActive (false);
-		weapon_holder.GetChild (1).gameObject.SetActive (false);
-		weapon_holder.GetChild (2).gameObject.SetActive (false);
-		weapon_holder.GetChild (3).gameObject.SetActive (false);
-		
-		weapon_holder.GetChild (id).gameObject.SetActive (true);
-	}
-
 	public string ToString()
 	{
-		return ("level: " + level.ToString() + "; name: " + name + "; attack_speed: " + attack_speed.ToString() + "; dmg: " + dmg.ToString());
+		return ("level: " + level.ToString() + "; name: " + name + "; attack_speed: " + attack_speed.ToString() + "; dmg: " + dmg.ToString() + "\nmin: " + added_min + ";max: " + added_max);
 	}
 }

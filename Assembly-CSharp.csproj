@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\InventoryScript.cs" />
+     <Compile Include="Assets\Scripts\InventorySlot.cs" />
      <Compile Include="Assets\Scripts\Items\CureItem.cs" />
      <Compile Include="Assets\Scripts\Items\Equipment.cs" />
      <Compile Include="Assets\Scripts\Items\EquipmentData.cs" />
@@ -75,6 +77,7 @@
      <Compile Include="Assets\Scripts\Skills\SkillIceBlast.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillLifeSteal.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillMeteor.cs" />
+     <Compile Include="Assets\Scripts\TooltipScript.cs" />
      <Compile Include="Assets\Scripts\UIEnemy.cs" />
      <Compile Include="Assets\Scripts\UIMaya.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />

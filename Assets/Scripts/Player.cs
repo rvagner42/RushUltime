@@ -3,10 +3,8 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Player : Character {
-
-	public Skill									currentSkill;
-
+public class Player : Character
+{
 	private NavMeshAgent							agent;
 	private Animator								animator;
 	private Enemy									target_enemy;
@@ -16,12 +14,16 @@ public class Player : Character {
 	private UIMaya									ui_maya;
 	private UIEnemy									ui_enemy;
 
-	public Skill									skillQ;
-	public Skill skillW;
-	public Skill skillE;
-	public Skill skillR;
-	public Skill skillRightMouse;
+	public Transform								weapon_holder;
 
+	public Skill									skillQ;
+	public Skill									skillW;
+	public Skill									skillE;
+	public Skill									skillR;
+	public Skill									skillRightMouse;
+
+	private PlayerSkills							skills;
+	private Transform								life_steal;
 
 	[HideInInspector]public int						xp = 0;
 	[HideInInspector]public int						xp_next = 150;
@@ -40,10 +42,13 @@ public class Player : Character {
 		equipped = null;
 		ui_maya = GameObject.FindGameObjectWithTag ("Maya UI").GetComponent<UIMaya> ();
 		ui_enemy = GameObject.FindGameObjectWithTag ("Enemy UI").GetComponent<UIEnemy> ();
+		weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
 		ui_enemy.Enable (false);
 		StartCoroutine (UIUpdate ());
 		StartCoroutine (RegenHP ());
 		StartCoroutine (RegenMana ());
+		skills = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
+		life_steal = skills.transform.GetChild (4);
 	}
 	
 	void Update ()
@@ -212,14 +217,23 @@ public class Player : Character {
 			{
 				agent.destination = transform.position;
 				animator.SetBool ("is_attacking", true);
-				animator.speed = attack_speed;
+				animator.speed = attack_speed * (life_steal.transform.childCount > 0 ? 1.0f + 0.05f * skills.lvl2Col2 : 1.0f);
 				attack_start_time = Time.time;
 			}
 			else if (Time.time > attack_start_time + (animator.GetCurrentAnimatorStateInfo( 0 ).length))
 			{
 				animator.SetBool ("is_attacking", false);
 				animator.speed = 1.0f;
-				if (target_enemy.GetAttacked(Random.Range (min_dmg_phys, max_dmg_phys + 1), agi) <= 0)
+				int added_min = 0;
+				int added_max = 0;
+				if (equipped != null)
+				{
+					added_min = equipped.added_min;
+					added_max = equipped.added_max;
+				}
+				int inflicted_dmg = Random.Range (min_dmg_phys + added_min, max_dmg_phys + added_max);
+				inflicted_dmg = Mathf.RoundToInt (inflicted_dmg * (1 + 0.05f * skills.lvl3Col2));
+				if (target_enemy.GetAttacked(inflicted_dmg, agi) <= 0)
 				{
 					target_enemy = null;
 					ui_enemy.Enable (false);
@@ -238,22 +252,47 @@ public class Player : Character {
 	{
 		if (Vector3.Distance (target_equip.transform.position, transform.position) < 2.5f)
 		{
-			if (inventory.Count < 12)
+			if (inventory.Count < 20)
 			{
 				transform.LookAt (target_equip.transform.position);
 				inventory.Add (target_equip.data);
 				Destroy(target_equip.gameObject);
 				Debug.Log(inventory[inventory.Count - 1].ToString());
-				inventory[inventory.Count - 1].Equip ();
-//				target_equip.Equip ();
+				if (equipped == null)
+					Equip (inventory[inventory.Count - 1]);
 			}
 			target_equip = null;
 		}
 	}
 
+	public void Equip(EquipmentData weapon)
+	{
+		equipped = weapon;
+		weapon_holder.GetChild (0).gameObject.SetActive (false);
+		weapon_holder.GetChild (1).gameObject.SetActive (false);
+		weapon_holder.GetChild (2).gameObject.SetActive (false);
+		weapon_holder.GetChild (3).gameObject.SetActive (false);
+		
+		weapon_holder.GetChild (equipped.id).gameObject.SetActive (true);
+
+		attack_speed = equipped.attack_speed;
+	}
+
+	public void Unequip()
+	{
+		weapon_holder.GetChild (0).gameObject.SetActive (false);
+		weapon_holder.GetChild (1).gameObject.SetActive (false);
+		weapon_holder.GetChild (2).gameObject.SetActive (false);
+		weapon_holder.GetChild (3).gameObject.SetActive (false);
+
+		attack_speed = 1.0f;
+
+		equipped = null;
+	}
+
 	void LevelUp()
 	{
-		xp = (xp > 0) ? xp - xp_next : 0;
+		xp = (xp >= xp_next) ? xp - xp_next : 0;
 		xp_next = xp_next + 100 * level;
 		level += 1;
 		upgrade_points += 5;
