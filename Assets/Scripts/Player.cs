@@ -257,7 +257,6 @@ public class Player : Character
 				transform.LookAt (target_equip.transform.position);
 				inventory.Add (target_equip.data);
 				Destroy(target_equip.gameObject);
-				Debug.Log(inventory[inventory.Count - 1].ToString());
 				if (equipped == null)
 					Equip (inventory[inventory.Count - 1]);
 			}

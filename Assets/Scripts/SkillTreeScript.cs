@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SkillTreeScript : MonoBehaviour {
+public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 	
 	private Skill Skill1Col1;
 	private Skill Skill1Col2;
@@ -62,6 +63,8 @@ public class SkillTreeScript : MonoBehaviour {
 	private bool onLvl3Col3 = false;
 
 	private Text freePoints;
+
+	private	bool isOver = false;
 	
 	// Use this for initialization
 	void Start ()
@@ -129,7 +132,8 @@ public class SkillTreeScript : MonoBehaviour {
 			upgradeButton.gameObject.SetActive(true);
 		else
 			upgradeButton.gameObject.SetActive(false);
-		checkTooltip ();
+		if (isOver)
+			checkTooltip ();
 		if (Input.GetMouseButtonDown (1))
 		{
 			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
@@ -439,11 +443,22 @@ public class SkillTreeScript : MonoBehaviour {
 			onLvl3Col1 = false;
 			onLvl3Col2 = false;
 			onLvl3Col3 = false;
-			tooltip.gameObject.SetActive (false);
+		//	if (panel.gameObject.activeInHierarchy)
+			tooltip.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
 			panel.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
 		}
 
 
+	}
+
+	public void OnPointerEnter(PointerEventData pointer_data)
+	{
+		isOver = true;
+	}
+	
+	public void OnPointerExit(PointerEventData pointer_data)
+	{
+		isOver = false;
 	}
 
 	void checkTooltip()

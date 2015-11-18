@@ -164,7 +164,10 @@ public class Enemy : Character {
 		player.xp += (base_xp + (inc_xp * level));
 		player.money += (base_money + (inc_money * level));
 		if (Random.Range (0, 2) == 0)
-		Instantiate (drops[Random.Range (0, drops.Count)], transform.position, transform.rotation);
+		{
+			int rand = Random.Range (0, drops.Count);
+			Instantiate (drops[rand], transform.position, drops[rand].transform.rotation);
+		}
 		yield return new WaitForSeconds (4.0f);
 		while (transform.position.y > -1.0f)
 		{
