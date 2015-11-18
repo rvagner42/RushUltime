@@ -3,10 +3,30 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class SkillTreeScript : MonoBehaviour {
+
+	public static GameObject item;
+
+	private Skill Skill1Col1;
+	private Skill Skill1Col2;
+	private Skill Skill1Col3;
+	private Skill Skill2Col1;
+	private Skill Skill2Col2;
+	private Skill Skill2Col3;
+	private Skill Skill3Col1;
+	//private Skill Skill3Col2;
+	private Skill Skill3Col3;
 	
 	private PlayerSkills skill;
 	private Player player;
-	
+
+	private Transform skillBar;
+
+	private Image skillQ;
+	private Image skillW;
+	private Image skillE;
+	private Image skillR;
+	private Image skillRightMouse;
+
 	private Transform panel;
 	private Transform upgradeButton;
 	
@@ -29,7 +49,17 @@ public class SkillTreeScript : MonoBehaviour {
 	private Image img3Col1;
 	private Image img3Col2;
 	private Image img3Col3;
-	
+
+	private bool onLvl1Col1 = false;
+	private bool onLvl1Col2 = false;
+	private bool onLvl1Col3 = false;
+	private bool onLvl2Col1 = false;
+	private bool onLvl2Col2 = false;
+	private bool onLvl2Col3 = false;
+	private bool onLvl3Col1 = false;
+	private bool onLvl3Col2 = false;
+	private bool onLvl3Col3 = false;
+
 	
 	private Text freePoints;
 	
@@ -38,6 +68,24 @@ public class SkillTreeScript : MonoBehaviour {
 	{
 		skill = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
+		skillBar = GameObject.FindGameObjectWithTag ("SkillBar").transform;
+
+		Skill1Col1 = skill.transform.GetChild (0).GetComponent<Skill>();
+		Skill1Col2 = skill.transform.GetChild (1).GetComponent<Skill>();
+		Skill1Col3 = skill.transform.GetChild (2).GetComponent<Skill>();
+		Skill2Col1 = skill.transform.GetChild (3).GetComponent<Skill>();
+		Skill2Col2 = skill.transform.GetChild (4).GetComponent<Skill>();
+		Skill2Col3 = skill.transform.GetChild (5).GetComponent<Skill>();
+		Skill3Col1 = skill.transform.GetChild (6).GetComponent<Skill>();
+		//Skill3Col2 = skill.transform.GetChild (7).GetComponent<Skill>();
+		Skill3Col3 = skill.transform.GetChild (8).GetComponent<Skill>();
+
+		skillQ = skillBar.GetChild (0).GetComponent<Image>();
+		skillW = skillBar.GetChild (1).GetComponent<Image>();
+		skillE = skillBar.GetChild (2).GetComponent<Image>();
+		skillR = skillBar.GetChild (3).GetComponent<Image>();
+		skillRightMouse = skillBar.GetChild (4).GetComponent<Image>();
+
 		panel = transform.GetChild (0);
 		upgradeButton = transform.GetChild (1); 
 		
@@ -81,6 +129,307 @@ public class SkillTreeScript : MonoBehaviour {
 			upgradeButton.gameObject.SetActive(true);
 		else
 			upgradeButton.gameObject.SetActive(false);
+
+		if (Input.GetMouseButtonDown (1))
+		{
+			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
+			{
+				player.skillRightMouse = Skill1Col1;
+				skillRightMouse.sprite = img1Col1.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col2 == true && skill.lvl1Col2 > 0)
+			{
+				player.skillRightMouse = Skill1Col2;
+				skillRightMouse.sprite = img1Col2.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col3 == true && skill.lvl1Col3 > 0)
+			{
+				player.skillRightMouse = Skill1Col3;
+				skillRightMouse.sprite = img1Col3.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl2Col1 == true && skill.lvl2Col1 > 0)
+			{
+				player.skillRightMouse = Skill2Col1;
+				skillRightMouse.sprite = img2Col1.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col2 == true && skill.lvl2Col2 > 0)
+			{
+				player.skillRightMouse = Skill2Col2;
+				skillRightMouse.sprite = img2Col2.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col3 == true && skill.lvl2Col3 > 0)
+			{
+				player.skillRightMouse = Skill2Col3;
+				skillRightMouse.sprite = img2Col3.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl3Col1 == true && skill.lvl3Col1 > 0)
+			{
+				player.skillRightMouse = Skill3Col1;
+				skillRightMouse.sprite = img3Col1.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+			/*else if (onLvl3Col2 == true && skill.lvl3Col2 > 0)
+			{
+				player.skillRightMouse = Skill3Col2;
+				skillRightMouse.sprite = img3Col2.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}*/
+			else if (onLvl3Col3 == true && skill.lvl3Col3 > 0)
+			{
+				player.skillRightMouse = Skill3Col3;
+				skillRightMouse.sprite = img3Col3.sprite;
+				skillRightMouse.color = new Color (1f, 1f, 1f, 1f);
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q))
+		{
+			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
+			{
+				player.skillQ = Skill1Col1;
+				skillQ.sprite = img1Col1.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col2 == true && skill.lvl1Col2 > 0)
+			{
+				player.skillQ = Skill1Col2;
+				skillQ.sprite = img1Col2.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col3 == true && skill.lvl1Col3 > 0)
+			{
+				player.skillQ = Skill1Col3;
+				skillQ.sprite = img1Col3.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+
+			if (onLvl2Col1 == true && skill.lvl2Col1 > 0)
+			{
+				player.skillQ = Skill2Col1;
+				skillQ.sprite = img2Col1.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col2 == true && skill.lvl2Col2 > 0)
+			{
+				player.skillQ = Skill2Col2;
+				skillQ.sprite = img2Col2.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col3 == true && skill.lvl2Col3 > 0)
+			{
+				player.skillQ = Skill2Col3;
+				skillQ.sprite = img2Col3.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+
+			if (onLvl3Col1 == true && skill.lvl3Col1 > 0)
+			{
+				player.skillQ = Skill3Col1;
+				skillQ.sprite = img3Col1.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+			/*else if (onLvl3Col2 == true && skill.lvl3Col2 > 0)
+			{
+				player.skillQ = Skill3Col2;
+				skillQ.sprite = img3Col2.sprite;
+			}*/
+			else if (onLvl3Col3 == true && skill.lvl3Col3 > 0)
+			{
+				player.skillQ = Skill3Col3;
+				skillQ.sprite = img3Col3.sprite;
+				skillQ.color = new Color (1f, 1f, 1f, 1f);
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.W))
+		{
+			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
+			{
+				player.skillW = Skill1Col1;
+				skillW.sprite = img1Col1.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col2 == true && skill.lvl1Col2 > 0)
+			{
+				player.skillW = Skill1Col2;
+				skillW.sprite = img1Col2.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col3 == true && skill.lvl1Col3 > 0)
+			{
+				player.skillW = Skill1Col3;
+				skillW.sprite = img1Col3.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl2Col1 == true && skill.lvl2Col1 > 0)
+			{
+				player.skillW = Skill2Col1;
+				skillW.sprite = img2Col1.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col2 == true && skill.lvl2Col2 > 0)
+			{
+				player.skillW = Skill2Col2;
+				skillW.sprite = img2Col2.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col3 == true && skill.lvl2Col3 > 0)
+			{
+				player.skillW = Skill2Col3;
+				skillW.sprite = img2Col3.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl3Col1 == true && skill.lvl3Col1 > 0)
+			{
+				player.skillW = Skill3Col1;
+				skillW.sprite = img3Col1.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+			/*else if (onLvl3Col2 == true && skill.lvl3Col2 > 0)
+			{
+				player.skillW = Skill3Col2;
+				skillW.sprite = img3Col2.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}*/
+			else if (onLvl3Col3 == true && skill.lvl3Col3 > 0)
+			{
+				player.skillW = Skill3Col3;
+				skillW.sprite = img3Col3.sprite;
+				skillW.color = new Color (1f, 1f, 1f, 1f);
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.E))
+		{
+			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
+			{
+				player.skillE = Skill1Col1;
+				skillE.sprite = img1Col1.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col2 == true && skill.lvl1Col2 > 0)
+			{
+				player.skillE = Skill1Col2;
+				skillE.sprite = img1Col2.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col3 == true && skill.lvl1Col3 > 0)
+			{
+				player.skillE = Skill1Col3;
+				skillE.sprite = img1Col3.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl2Col1 == true && skill.lvl2Col1 > 0)
+			{
+				player.skillE = Skill2Col1;
+				skillE.sprite = img2Col1.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col2 == true && skill.lvl2Col2 > 0)
+			{
+				player.skillE = Skill2Col2;
+				skillE.sprite = img2Col2.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col3 == true && skill.lvl2Col3 > 0)
+			{
+				player.skillE = Skill2Col3;
+				skillE.sprite = img2Col3.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl3Col1 == true && skill.lvl3Col1 > 0)
+			{
+				player.skillE = Skill3Col1;
+				skillE.sprite = img3Col1.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+			/*else if (onLvl3Col2 == true && skill.lvl3Col2 > 0)
+			{
+				player.skillE = Skill3Col2;
+				skillE.sprite = img3Col2.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}*/
+			else if (onLvl3Col3 == true && skill.lvl3Col3 > 0)
+			{
+				player.skillE = Skill3Col3;
+				skillE.sprite = img3Col3.sprite;
+				skillE.color = new Color (1f, 1f, 1f, 1f);
+			}
+		}
+
+		if (Input.GetKeyDown (KeyCode.R))
+		{
+			if (onLvl1Col1 == true && skill.lvl1Col1 > 0)
+			{
+				player.skillR = Skill1Col1;
+				skillR.sprite = img1Col1.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col2 == true && skill.lvl1Col2 > 0)
+			{
+				player.skillR = Skill1Col2;
+				skillR.sprite = img1Col2.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl1Col3 == true && skill.lvl1Col3 > 0)
+			{
+				player.skillR = Skill1Col3;
+				skillR.sprite = img1Col3.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl2Col1 == true && skill.lvl2Col1 > 0)
+			{
+				player.skillR = Skill2Col1;
+				skillR.sprite = img2Col1.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col2 == true && skill.lvl2Col2 > 0)
+			{
+				player.skillR = Skill2Col2;
+				skillR.sprite = img2Col2.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			else if (onLvl2Col3 == true && skill.lvl2Col3 > 0)
+			{
+				player.skillR = Skill2Col3;
+				skillR.sprite = img2Col3.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			
+			if (onLvl3Col1 == true && skill.lvl3Col1 > 0)
+			{
+				player.skillR = Skill3Col1;
+				skillR.sprite = img3Col1.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+			/*else if (onLvl3Col2 == true && skill.lvl3Col2 > 0)
+			{
+				player.skillR = Skill3Col2;
+				skillR.sprite = img3Col2.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}*/
+			else if (onLvl3Col3 == true && skill.lvl3Col3 > 0)
+			{
+				player.skillR = Skill3Col3;
+				skillR.sprite = img3Col3.sprite;
+				skillR.color = new Color (1f, 1f, 1f, 1f);
+			}
+		}
+
+
 	}
 	
 	public void UpdateSkills()
@@ -242,5 +591,95 @@ public class SkillTreeScript : MonoBehaviour {
 			player.skillPoints--;
 			UpdateSkills ();
 		}
+	}
+
+	public void OnLvl1Col1()
+	{
+		onLvl1Col1 = true;
+	}
+
+	public void OffLvl1Col1()
+	{
+		onLvl1Col1 = false;
+	}
+
+	public void OnLvl1Col2()
+	{
+		onLvl1Col2 = true;
+	}
+	
+	public void OffLvl1Col2()
+	{
+		onLvl1Col2 = false;
+	}
+
+	public void OnLvl1Col3()
+	{
+		onLvl1Col3 = true;
+	}
+	
+	public void OffLvl1Col3()
+	{
+		onLvl1Col3 = false;
+	}
+
+	public void OnLvl2Col1()
+	{
+		onLvl2Col1 = true;
+	}
+	
+	public void OffLvl2Col1()
+	{
+		onLvl2Col1 = false;
+	}
+	
+	public void OnLvl2Col2()
+	{
+		onLvl2Col2 = true;
+	}
+	
+	public void OffLvl2Col2()
+	{
+		onLvl2Col2 = false;
+	}
+	
+	public void OnLvl2Col3()
+	{
+		onLvl2Col3 = true;
+	}
+	
+	public void OffLvl2Col3()
+	{
+		onLvl2Col3 = false;
+	}
+
+	public void OnLvl3Col1()
+	{
+		onLvl3Col1 = true;
+	}
+	
+	public void OffLvl3Col1()
+	{
+		onLvl3Col1 = false;
+	}
+	
+	public void OnLvl3Col2()
+	{
+		onLvl3Col2 = true;
+	}
+	
+	public void OffLvl3Col2()
+	{
+		onLvl3Col2 = false;
+	}
+	
+	public void OnLvl3Col3()
+	{
+		onLvl3Col3 = true;
+	}
+	
+	public void OffLvl3Col3()
+	{
+		onLvl3Col3 = false;
 	}
 }

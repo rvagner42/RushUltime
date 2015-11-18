@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Items\CureItem.cs" />
      <Compile Include="Assets\Scripts\Items\Equipment.cs" />
+     <Compile Include="Assets\Scripts\Items\EquipmentData.cs" />
      <Compile Include="Assets\Scripts\MainCamera.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerSkills.cs" />

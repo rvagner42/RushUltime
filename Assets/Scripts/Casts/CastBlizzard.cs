@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CastBlizzard : Cast {
 
-	private Light light;
+	private Light li;
 	private float init;
 
 	public CastIceBlast iceBolt;
@@ -11,7 +11,7 @@ public class CastBlizzard : Cast {
 	// Use this for initialization
 	void Start ()
 	{
-		light = GetComponent<Light> ();
+		li = GetComponent<Light> ();
 		Destroy(gameObject, destroyTime + 2f);
 		init = Time.time;
 		StartCoroutine(spawner ());
@@ -38,9 +38,9 @@ public class CastBlizzard : Cast {
 	IEnumerator fadeOut()
 	{
 		yield return new WaitForSeconds (destroyTime);
-		while (light.intensity > 0)
+		while (li.intensity > 0)
 		{
-			light.intensity -= 0.1f;
+			li.intensity -= 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
 	}

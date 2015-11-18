@@ -3,15 +3,13 @@ using System.Collections;
 
 public class CastFrostNova : Cast {
 	
-	private AudioSource ausou;
 	private float lastTime;
-	private Light light;
+	private Light li;
 
 	
 	// Use this for initialization
 	void Start () {
-		ausou = GetComponent<AudioSource>();
-		light = GetComponent<Light> ();
+		li = GetComponent<Light> ();
 		Destroy(gameObject, destroyTime);
 		StartCoroutine (disableParticles ());
 		StartCoroutine (fadeOut ());
@@ -46,9 +44,9 @@ public class CastFrostNova : Cast {
 	IEnumerator fadeOut()
 	{
 		yield return new WaitForSeconds (destroyTime - 2.0f);
-		while (light.intensity > 0)
+		while (li.intensity > 0)
 		{
-			light.intensity -= 0.1f;
+			li.intensity -= 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
 	}

@@ -33,7 +33,7 @@ public class CharaStatsScript : MonoBehaviour {
 
 		panel = transform.GetChild (0);
 
-		upgrade_button = transform.GetChild (1);
+		upgrade_button = transform.FindChild ("Button");
 
 		level = panel.GetChild (0).GetChild (1).GetComponent<UnityEngine.UI.Text> ();
 

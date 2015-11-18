@@ -3,13 +3,10 @@ using System.Collections;
 
 public class CastLifeSteal : Cast {
 	
-	private Rigidbody rb;
-	
 	public GameObject explosion;
 	
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody>();
 		StartCoroutine(Destroy());
 	}
 	

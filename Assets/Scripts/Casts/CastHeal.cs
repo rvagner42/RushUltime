@@ -3,15 +3,13 @@ using System.Collections;
 
 public class CastHeal : Cast {
 	
-	private Rigidbody rb;
-	private Light light;
+	private Light li;
 	
 	public GameObject explosion;
 	
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody>();
-		light = GetComponent<Light> ();
+		li = GetComponent<Light> ();
 		StartCoroutine(Destroy());
 		StartCoroutine (fadeOut ());
 	}
@@ -33,9 +31,9 @@ public class CastHeal : Cast {
 	IEnumerator fadeOut()
 	{
 		yield return new WaitForSeconds (destroyTime - 2.0f);
-		while (light.intensity > 0)
+		while (li.intensity > 0)
 		{
-			light.intensity -= 0.1f;
+			li.intensity -= 0.1f;
 			yield return new WaitForSeconds(0.1f);
 		}
 	}

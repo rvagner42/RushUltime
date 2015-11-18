@@ -16,7 +16,11 @@ public class Player : Character {
 	private UIMaya									ui_maya;
 	private UIEnemy									ui_enemy;
 
-	private Transform								weapon_holder;
+	public Skill									skillQ;
+	public Skill skillW;
+	public Skill skillE;
+	public Skill skillR;
+	public Skill skillRightMouse;
 
 
 	[HideInInspector]public int						xp = 0;
@@ -24,7 +28,8 @@ public class Player : Character {
 	[HideInInspector]public int						money = 0;
 	[HideInInspector]public int						upgrade_points = 0;
 	[HideInInspector]public int						skillPoints = 0;
-	[HideInInspector]public List<Equipment>			inventory = new List<Equipment> ();
+	[HideInInspector]public List<EquipmentData>		inventory = new List<EquipmentData> ();
+	[HideInInspector]public EquipmentData			equipped;
 
 	void Start ()
 	{
@@ -32,10 +37,10 @@ public class Player : Character {
 		animator = GetComponent<Animator> ();
 		target_enemy = null;
 		target_equip = null;
+		equipped = null;
 		ui_maya = GameObject.FindGameObjectWithTag ("Maya UI").GetComponent<UIMaya> ();
 		ui_enemy = GameObject.FindGameObjectWithTag ("Enemy UI").GetComponent<UIEnemy> ();
 		ui_enemy.Enable (false);
-		weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
 		StartCoroutine (UIUpdate ());
 		StartCoroutine (RegenHP ());
 		StartCoroutine (RegenMana ());
@@ -45,7 +50,7 @@ public class Player : Character {
 	{
 		if (!is_dead) {
 			if (!EventSystem.current.IsPointerOverGameObject())
-				CheckClick ();
+				CheckInput ();
 			Animate ();
 			if (hp <= 0)
 			{
@@ -73,7 +78,7 @@ public class Player : Character {
 		}
 	}
 
-	void CheckClick()
+	void CheckInput()
 	{
 		if (Input.GetMouseButtonDown (0))
 		{
@@ -119,7 +124,8 @@ public class Player : Character {
 			Fetch ();
 
 
-		if (Input.GetMouseButton (1))
+		
+		if (Input.GetMouseButton (1) && skillRightMouse != null)
 		{
 			agent.destination = transform.position;
 			RaycastHit hit;
@@ -130,7 +136,67 @@ public class Player : Character {
 				Quaternion rotation = transform.rotation;
 				rotation.x = 0;
 				rotation.z = 0;
-				currentSkill.Cast(hit.point, rotation);
+				skillRightMouse.Cast(hit.point, rotation);
+			}
+		}
+		
+		if (Input.GetKey (KeyCode.Q) && skillQ != null)
+		{
+			agent.destination = transform.position;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+				Quaternion rotation = transform.rotation;
+				rotation.x = 0;
+				rotation.z = 0;
+				skillQ.Cast(hit.point, rotation);
+			}
+		}
+		
+		if (Input.GetKey (KeyCode.W) && skillW != null)
+		{
+			agent.destination = transform.position;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+				Quaternion rotation = transform.rotation;
+				rotation.x = 0;
+				rotation.z = 0;
+				skillW.Cast(hit.point, rotation);
+			}
+		}
+		
+		if (Input.GetKey (KeyCode.E) && skillE != null)
+		{
+			agent.destination = transform.position;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+				Quaternion rotation = transform.rotation;
+				rotation.x = 0;
+				rotation.z = 0;
+				skillE.Cast(hit.point, rotation);
+			}
+		}
+		
+		if (Input.GetKey (KeyCode.R) && skillR != null)
+		{
+			agent.destination = transform.position;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out hit))
+			{
+				transform.LookAt(new Vector3(hit.point.x, transform.position.y, hit.point.z));
+				Quaternion rotation = transform.rotation;
+				rotation.x = 0;
+				rotation.z = 0;
+				skillR.Cast(hit.point, rotation);
 			}
 		}
 
@@ -172,15 +238,15 @@ public class Player : Character {
 	{
 		if (Vector3.Distance (target_equip.transform.position, transform.position) < 2.5f)
 		{
-			transform.LookAt (target_equip.transform.position);
-			inventory.Add (target_equip);
-	//		weapon_holder.GetChild (0) = target_equip.gameObject;
-			target_equip.transform.parent = weapon_holder;
-			target_equip.transform.localPosition = weapon_holder.GetChild (0).localPosition;
-			target_equip.transform.localRotation = weapon_holder.GetChild (0).localRotation;
-			target_equip.GetComponent<Collider> ().enabled = false;
-			//Destroy (target_equip.GetComponent<Rigidbody> ());
-			//Destroy (target_equip.gameObject);
+			if (inventory.Count < 12)
+			{
+				transform.LookAt (target_equip.transform.position);
+				inventory.Add (target_equip.data);
+				Destroy(target_equip.gameObject);
+				Debug.Log(inventory[inventory.Count - 1].ToString());
+				inventory[inventory.Count - 1].Equip ();
+//				target_equip.Equip ();
+			}
 			target_equip = null;
 		}
 	}

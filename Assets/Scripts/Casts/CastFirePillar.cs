@@ -5,12 +5,12 @@ public class CastFirePillar : Cast {
 
 	private AudioSource ausou;
 	private float lastTime;
-	private Light light;
+	private Light li;
 
 	// Use this for initialization
 	void Start () {
 		ausou = GetComponent<AudioSource>();
-		light = transform.GetChild (1).GetComponent<Light> ();
+		li = transform.GetChild (1).GetComponent<Light> ();
 		Destroy(gameObject, destroyTime + 2);
 		StartCoroutine(fireTime());
 		lastTime = -0.5f;
@@ -47,7 +47,7 @@ public class CastFirePillar : Cast {
 		for (int i = 19; i >= 0; i--)
 		{
 			ausou.volume = i * 0.05f;
-			light.intensity -= 0.1f;
+			li.intensity -= 0.1f;
 			yield return new WaitForSeconds(0.05f);
 		}
 	}

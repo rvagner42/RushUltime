@@ -3,25 +3,27 @@ using System.Collections;
 
 public class Equipment : MonoBehaviour
 {
-	[HideInInspector]public int			level;
-	[HideInInspector]public string		name;
-	[HideInInspector]public float		attack_speed;
-	[HideInInspector]public float		dmg;
-	public int							id;
-	public Sprite						sprite;
-	private Transform					weapon_holder;
+	[HideInInspector]public EquipmentData	data;
+
+	public int								id;
+	public Sprite							sprite;
+	public string							name;
+
+	public float							min_attack_speed;
+	public float							max_attack_speed;
+	public int								base_dmg;
+	public int								inc_dmg;
 
 	void Start()
 	{
-		weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
-	}
-
-	public void Equip()
-	{
-		weapon_holder.GetChild (0).gameObject.SetActive (false);
-		weapon_holder.GetChild (1).gameObject.SetActive (false);
-		weapon_holder.GetChild (2).gameObject.SetActive (false);
-		
-		weapon_holder.GetChild (id).gameObject.SetActive (true);
+		data = ScriptableObject.CreateInstance ("EquipmentData") as EquipmentData;
+		data.level = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().level;
+		data.attack_speed = Random.Range (min_attack_speed, max_attack_speed);
+		data.dmg = base_dmg + inc_dmg * data.level;
+		data.dmg = Random.Range (data.dmg - (data.dmg / 10), data.dmg + (data.dmg / 10));
+		data.id = id;
+		data.sprite = sprite;
+		data.name = name;
+		data.weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
 	}
 }
