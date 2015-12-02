@@ -53,7 +53,6 @@ public class Player : Character
 		StartCoroutine (RegenMana ());
 		skills = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		life_steal = skills.transform.GetChild (4);
-		animator.CrossFade ("HumanoidIdle", 0.1f);
 	}
 	
 	void Update ()

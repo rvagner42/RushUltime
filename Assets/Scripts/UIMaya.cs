@@ -12,7 +12,7 @@ public class UIMaya : MonoBehaviour {
 	private UnityEngine.UI.Text		level_text;
 	private Transform				death_screen;
 
-	void Start ()
+	void Awake ()
 	{
 		hp_bar = transform.GetChild (2).GetChild (1).GetComponent<UnityEngine.UI.Image> ();
 		hp_text = transform.GetChild (2).GetChild (3).GetComponent<UnityEngine.UI.Text> ();

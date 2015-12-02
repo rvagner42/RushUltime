@@ -11,7 +11,6 @@ public class LoadMaya : MonoBehaviour {
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
 		player.GetComponent<NavMeshAgent> ().enabled = false;
-		player.GetComponent<Animator> ().CrossFade ("HumanoidIdle", 0f);
 		Application.LoadLevel (map);
 	}
 	
