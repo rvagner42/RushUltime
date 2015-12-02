@@ -33,6 +33,9 @@ public class Player : Character
 	[HideInInspector]public List<EquipmentData>		inventory = new List<EquipmentData> ();
 	[HideInInspector]public EquipmentData			equipped;
 
+	[HideInInspector]public int						warpId = -1;
+	[HideInInspector]public bool					warped = false;
+
 
 	void Start ()
 	{
@@ -50,6 +53,7 @@ public class Player : Character
 		StartCoroutine (RegenMana ());
 		skills = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		life_steal = skills.transform.GetChild (4);
+		animator.CrossFade ("HumanoidIdle", 0.1f);
 	}
 	
 	void Update ()
