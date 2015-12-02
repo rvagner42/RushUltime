@@ -14,6 +14,10 @@ public class Equipment : MonoBehaviour
 	public int								base_dmg;
 	public int								inc_dmg;
 
+	[HideInInspector]public Transform		tooltip;
+	private UnityEngine.UI.Text				tooltip_title;
+	private UnityEngine.UI.Text				tooltip_description;
+
 	void Awake()
 	{
 		data = ScriptableObject.CreateInstance ("EquipmentData") as EquipmentData;
@@ -28,6 +32,13 @@ public class Equipment : MonoBehaviour
 		data.sprite = sprite;
 		data.equip_name = equip_name;
 		data.weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
+	}
+
+	void Start()
+	{
+		tooltip = GameObject.FindGameObjectWithTag ("Tooltip").transform.GetChild (0).transform;
+		tooltip_title = tooltip.GetChild (0).GetChild (0).GetComponent<UnityEngine.UI.Text> ();
+		tooltip_description = tooltip.GetChild (1).GetChild (0).GetComponent<UnityEngine.UI.Text> ();
 	}
 
 	void SetRarity(int rand)
@@ -57,13 +68,24 @@ public class Equipment : MonoBehaviour
 			data.rarity = "Common";
 	}
 
-	public void CopyData(EquipmentData new_data)
+	void OnDestroy()
 	{
-		data.level = new_data.level;
-		data.dmg = new_data.dmg;
-		data.added_max = new_data.added_max;
-		data.added_min = new_data.added_min;
-		data.attack_speed = new_data.attack_speed;
-		data.rarity = new_data.rarity;
+		tooltip.gameObject.SetActive (false);
+	}
+
+	void OnMouseEnter()
+	{
+		tooltip.gameObject.SetActive (true);
+		tooltip_title.text = data.equip_name;
+		tooltip_description.text = "(lvl " + data.level.ToString () + ")"
+			+ "\n[" + data.rarity + "] "
+			+ "\n\nMin: " + data.added_min.ToString ()
+			+ "\nMax: " + data.added_max.ToString ()
+			+ "\nSpeed: " + data.attack_speed.ToString ("F2") + "\n";
+	}
+
+	void OnMouseExit()
+	{
+		tooltip.gameObject.SetActive (false);
 	}
 }

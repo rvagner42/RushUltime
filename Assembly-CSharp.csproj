@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{8CEAD82C-D928-8D18-9497-09C089C9B5F1}</ProjectGuid>
+	<ProjectGuid>{25B866E7-5884-6C59-D54F-A78CD483DAF6}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+     <Compile Include="Assets\Scripts\GlobalData.cs" />
      <Compile Include="Assets\Scripts\InventoryScript.cs" />
      <Compile Include="Assets\Scripts\InventorySlot.cs" />
      <Compile Include="Assets\Scripts\Items\CureItem.cs" />
@@ -77,6 +78,7 @@
      <Compile Include="Assets\Scripts\Skills\SkillIceBlast.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillLifeSteal.cs" />
      <Compile Include="Assets\Scripts\Skills\SkillMeteor.cs" />
+     <Compile Include="Assets\Scripts\ToDungeon01.cs" />
      <Compile Include="Assets\Scripts\TooltipScript.cs" />
      <Compile Include="Assets\Scripts\UIEnemy.cs" />
      <Compile Include="Assets\Scripts\UIMaya.cs" />
@@ -102,7 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{55D02914-7D04-8E42-1EE3-6A950D0783F9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{E0A31108-180A-D338-6B04-0053FFEA98C9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

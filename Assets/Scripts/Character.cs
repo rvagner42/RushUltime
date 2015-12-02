@@ -32,6 +32,8 @@ public class Character : MonoBehaviour {
 
 	public float					attack_speed;
 
+	protected AudioSource[]			source;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -44,6 +46,7 @@ public class Character : MonoBehaviour {
 		CalculateStats ();
 		hp = hp_max;
 		mana = mana_max;
+		source = GetComponents<AudioSource> ();
 	}
 
 	public int GetAttacked(int dmg, int attacker_agi)
@@ -57,6 +60,7 @@ public class Character : MonoBehaviour {
 			hp -= totalDmg;
 			if (hp < 0)
 				hp = 0;
+			AudioSource.PlayClipAtPoint(source[1].clip, transform.position);
 		}
 		return (hp);
 	}

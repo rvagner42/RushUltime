@@ -54,9 +54,8 @@ public class InventoryScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
 			panel.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
 			selected = null;
 			pointer_over = !pointer_over;
-		}
-		if (pointer_over == false)
 			DisableTooltip ();
+		}
 	}
 
 	public void OnPointerEnter(PointerEventData pointer_data)

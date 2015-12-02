@@ -120,6 +120,7 @@ public class Enemy : Character {
 			if (animator.GetBool ("is_attacking") == false)
 			{
 				animator.SetBool ("is_attacking", true);
+				AudioSource.PlayClipAtPoint(source[0].clip, transform.position);
 				animator.speed = attack_speed;
 				attack_start_time = Time.time;
 			}

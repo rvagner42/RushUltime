@@ -443,8 +443,8 @@ public class SkillTreeScript : MonoBehaviour, IPointerEnterHandler, IPointerExit
 			onLvl3Col1 = false;
 			onLvl3Col2 = false;
 			onLvl3Col3 = false;
-		//	if (panel.gameObject.activeInHierarchy)
-			tooltip.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
+			if (panel.gameObject.activeInHierarchy)
+				tooltip.gameObject.SetActive (false);
 			panel.gameObject.SetActive (!panel.gameObject.activeInHierarchy);
 		}
 

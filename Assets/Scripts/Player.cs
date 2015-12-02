@@ -33,6 +33,7 @@ public class Player : Character
 	[HideInInspector]public List<EquipmentData>		inventory = new List<EquipmentData> ();
 	[HideInInspector]public EquipmentData			equipped;
 
+
 	void Start ()
 	{
 		agent = GetComponent<NavMeshAgent> ();
@@ -217,6 +218,7 @@ public class Player : Character
 			{
 				agent.destination = transform.position;
 				animator.SetBool ("is_attacking", true);
+				AudioSource.PlayClipAtPoint(source[0].clip, transform.position);
 				animator.speed = attack_speed * (life_steal.transform.childCount > 0 ? 1.0f + 0.05f * skills.lvl2Col2 : 1.0f);
 				attack_start_time = Time.time;
 			}
@@ -329,6 +331,8 @@ public class Player : Character
 		while (hp > 0)
 		{
 			hp += (hp_max / 100);
+			if ((hp_max / 100) == 0)
+				hp += 1;
 			if (hp > hp_max)
 				hp = hp_max;
 			yield return new WaitForSeconds (3.0f);
@@ -340,6 +344,8 @@ public class Player : Character
 		while (mana > 0)
 		{
 			mana += (mana_max / 100);
+			if ((mana_max / 100) == 0)
+				mana += 1;
 			if (mana > mana_max)
 				mana = mana_max;
 			yield return new WaitForSeconds (1.5f);
