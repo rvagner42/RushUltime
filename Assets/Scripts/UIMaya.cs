@@ -10,6 +10,7 @@ public class UIMaya : MonoBehaviour {
 	private UnityEngine.UI.Text		mana_text;
 	private UnityEngine.UI.Text		xp_text;
 	private UnityEngine.UI.Text		level_text;
+	private Transform				loading_screen;
 	private Transform				death_screen;
 
 	void Awake ()
@@ -22,6 +23,7 @@ public class UIMaya : MonoBehaviour {
 		xp_text = transform.GetChild (1).GetChild (2).GetComponent<UnityEngine.UI.Text> ();
 		level_text = transform.GetChild (4).GetComponent<UnityEngine.UI.Text> ();
 		death_screen = transform.GetChild (5);
+		loading_screen = GameObject.FindGameObjectWithTag ("Loading").transform;
 	}
 	
 	public void UpdateUI (float hp, float max_hp, float xp, float max_xp, int level, float mana, float max_mana)
@@ -51,5 +53,16 @@ public class UIMaya : MonoBehaviour {
 			panel.color = panel.color + new Color(0.0f, 0.0f, 0.0f, 0.01f);
 			yield return new WaitForSeconds (0.05f);
 		}
+	}
+	
+	void OnLevelWasLoaded(int level)
+	{
+		StartCoroutine (loading ());
+	}
+	
+	IEnumerator loading()
+	{
+		yield return new WaitForSeconds(0.5f);
+		loading_screen.gameObject.SetActive (false);
 	}
 }

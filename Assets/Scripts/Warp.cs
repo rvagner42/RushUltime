@@ -5,11 +5,10 @@ public class Warp : MonoBehaviour {
 
 	public string map;
 	public int warpId;
-	//public Vector3 position;
-
+	private Transform loading;
 	// Use this for initialization
 	void Start () {
-	
+		loading = GameObject.FindGameObjectWithTag ("Loading").transform;
 	}
 	
 	// Update is called once per frame
@@ -24,6 +23,7 @@ public class Warp : MonoBehaviour {
 			collider.gameObject.GetComponent<NavMeshAgent>().enabled = false;
 			collider.gameObject.GetComponent<Player>().warpId = warpId;
 			collider.gameObject.GetComponent<Player>().warped = true;
+			loading.gameObject.SetActive(true);
 			Application.LoadLevel (map);
 		}
 	}
