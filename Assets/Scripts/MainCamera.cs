@@ -15,5 +15,15 @@ public class MainCamera : MonoBehaviour {
 	void Update ()
 	{
 		transform.position = player.transform.position - offset;
+		RaycastHit hit;
+		if (Physics.Raycast(transform.position, player.transform.position - transform.position, out hit) && hit.transform.tag == "Wall")
+		{
+			Color test = new Color();
+			test = hit.transform.gameObject.GetComponent<Renderer> ().material.color;
+			test.a = 0.2f;
+			hit.transform.gameObject.GetComponent<Renderer> ().material.color = test;
+			//gameObject.GetComponent<Renderer>().material.color.a = 1.0; // fully opaque
+			Debug.Log(hit.transform.gameObject.GetComponent<Renderer> ().material.color.a);
+		}
 	}
 }
