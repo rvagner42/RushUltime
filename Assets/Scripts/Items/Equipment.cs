@@ -32,6 +32,7 @@ public class Equipment : MonoBehaviour
 		data.sprite = sprite;
 		data.equip_name = equip_name;
 		data.weapon_holder = GameObject.FindGameObjectWithTag ("WeaponHolder").transform;
+		Destroy (gameObject, 60.0f);
 	}
 
 	void Start()
