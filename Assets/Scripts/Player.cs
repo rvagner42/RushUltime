@@ -13,6 +13,7 @@ public class Player : Character
 	private bool									is_dead = false;
 	private UIMaya									ui_maya;
 	private UIEnemy									ui_enemy;
+	private ParticleSystem							level_up_particles;
 
 	public Transform								weapon_holder;
 
@@ -53,6 +54,7 @@ public class Player : Character
 		StartCoroutine (RegenMana ());
 		skills = GameObject.FindGameObjectWithTag ("Skill").GetComponent<PlayerSkills> ();
 		life_steal = skills.transform.GetChild (4);
+		level_up_particles = transform.GetChild (7).GetComponent<ParticleSystem> ();;
 	}
 	
 	void Update ()
@@ -137,6 +139,7 @@ public class Player : Character
 		if (Input.GetMouseButton (1) && skillRightMouse != null)
 		{
 			agent.destination = transform.position;
+			target_enemy = null;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
@@ -152,6 +155,7 @@ public class Player : Character
 		if (Input.GetKey (KeyCode.Q) && skillQ != null)
 		{
 			agent.destination = transform.position;
+			target_enemy = null;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
@@ -167,6 +171,7 @@ public class Player : Character
 		if (Input.GetKey (KeyCode.W) && skillW != null)
 		{
 			agent.destination = transform.position;
+			target_enemy = null;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
@@ -182,6 +187,7 @@ public class Player : Character
 		if (Input.GetKey (KeyCode.E) && skillE != null)
 		{
 			agent.destination = transform.position;
+			target_enemy = null;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
@@ -197,6 +203,7 @@ public class Player : Character
 		if (Input.GetKey (KeyCode.R) && skillR != null)
 		{
 			agent.destination = transform.position;
+			target_enemy = null;
 			RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			if (Physics.Raycast(ray, out hit))
@@ -296,6 +303,7 @@ public class Player : Character
 
 	void LevelUp()
 	{
+		level_up_particles.Play ();
 		xp = (xp >= xp_next) ? xp - xp_next : 0;
 		xp_next = xp_next + 100 * level;
 		level += 1;
