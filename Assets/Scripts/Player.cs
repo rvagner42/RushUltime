@@ -68,6 +68,7 @@ public class Player : Character
 				hp = 0;
 				is_dead = true;
 				target_enemy = null;
+				animator.speed = 1.0f;
 				animator.SetTrigger("is_dead");
 				ui_maya.DeathUI();
 			}
