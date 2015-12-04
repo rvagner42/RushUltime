@@ -11,7 +11,6 @@ public class CastHeal : Cast {
 	void Start () {
 		li = GetComponent<Light> ();
 		StartCoroutine(Destroy());
-		StartCoroutine (fadeOut ());
 	}
 	
 	// Update is called once per frame
