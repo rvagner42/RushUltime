@@ -15,7 +15,17 @@ public class VisibilityBubble : MonoBehaviour {
 
 	void OnTriggerStay(Collider other)
 	{
-		if (other.tag == "Wall" && transform.position.z < other.transform.position.z)
+		if (other.tag == "Wall" && transform.position.z < other.transform.position.z &&
+		    other.GetComponent<TransparentWall>() && other.GetComponent<TransparentWall>().isTransparent == false)
+		{
+			other.GetComponent<TransparentWall>().StartFadeOut();
+		}
+		else if (other.tag == "Wall" && transform.position.z > other.transform.position.z &&
+		    other.GetComponent<TransparentWall>() && other.GetComponent<TransparentWall>().isTransparent == true)
+		{
+			other.GetComponent<TransparentWall>().StartFadeIn();
+		}
+		/*if (other.tag == "Wall" && transform.position.z < other.transform.position.z)
 		{
 			Color alpha = new Color();
 			Material[] materials;
@@ -38,12 +48,16 @@ public class VisibilityBubble : MonoBehaviour {
 				alpha.a = 1.0f;
 				elem.color = alpha;
 			}
-		}
+		}*/
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		Color alpha = new Color();
+		if (other.tag == "Wall" && other.GetComponent<TransparentWall>() &&
+		    other.GetComponent<TransparentWall>().isTransparent == true)
+		other.GetComponent<TransparentWall>().StartFadeIn();
+
+		/*Color alpha = new Color();
 		Material[] materials;
 		materials = other.transform.gameObject.GetComponent<Renderer>().materials;
 		foreach (Material elem in materials)
@@ -51,6 +65,6 @@ public class VisibilityBubble : MonoBehaviour {
 			alpha = elem.color;
 			alpha.a = 1.0f;
 			elem.color = alpha;
-		}
+		}*/
 	}
 }

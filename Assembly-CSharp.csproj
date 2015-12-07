@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Skills\SkillMeteor.cs" />
      <Compile Include="Assets\Scripts\ToDungeon01.cs" />
      <Compile Include="Assets\Scripts\TooltipScript.cs" />
+     <Compile Include="Assets\Scripts\TransparentWall.cs" />
      <Compile Include="Assets\Scripts\UIEnemy.cs" />
      <Compile Include="Assets\Scripts\UIMaya.cs" />
      <Compile Include="Assets\Scripts\VisibilityBubble.cs" />
